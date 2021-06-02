@@ -1,89 +1,35 @@
-<div class="home-slider-banner">
-            <div class="container">
-                <div class="row10">
-                    <div class="col-lg-8 silider-wrapp">
-                        <div class="home-slider">
-                            <div class="slider-owl owl-slick equal-container nav-center"
-                                 data-slick='{"autoplay":true, "autoplaySpeed":9000, "arrows":false, "dots":true, "infinite":true, "speed":1000, "rows":1}'
-                                 data-responsive='[{"breakpoint":"2000","settings":{"slidesToShow":1}}]'>
-                                <div class="slider-item style7">
-                                    <div class="slider-inner equal-element" style="background:url({{ asset('banner/larome.webp') }})">
-                                        {{-- <div class="slider-infor">
-                                            <h5 class="title-small">
-                                                Sale up to 40% off!
-                                            </h5>
-                                            <h3 class="title-big">
-                                                Spring Summer <br/>Collection
-                                            </h3>
-                                            <div class="price">
-                                                New Price:
-                                                <span class="number-price">
-														$270.00
-													</span>
-                                            </div>
-                                            <a href="#" class="button btn-shop-the-look bgroud-style">Shop now</a>
-                                        </div> --}}
-                                    </div>
-                                </div>
-                                <div class="slider-item style8">
-                                    <div class="slider-inner equal-element" style="background:url({{ asset('banner/banner1.jpg') }})">
-                                        <div class="slider-infor">
-                                            <h5 class="title-small">
-                                                Take A perfume
-                                            </h5>
-                                            <h3 class="title-big">
-                                                Up to 25% Off <br/>order now
-                                            </h3>
-                                            <div class="price">
-                                                Save Price:
-                                                <span class="number-price">
-														$170.00
-													</span>
-                                            </div>
-                                            <a href="#" class="button btn-shop-product">Shop now</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="slider-item style9">
-                                    <div class="slider-inner equal-element" style="background:url({{ asset('banner/banner6.jpg') }})">
-                                        {{-- <div class="slider-infor">
-                                            <h5 class="title-small">
-                                                Stelina Best Collection
-                                            </h5>
-                                            <h3 class="title-big">
-                                                A range of <br/>perfume
-                                            </h3>
-                                            <div class="price">
-                                                New Price:
-                                                <span class="number-price">
-														$250.00
-													</span>
-                                            </div>
-                                            <a href="#" class="button btn-chekout">Shop now</a>
-                                        </div> --}}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 banner-wrapp">
-                        <div class="banner" style="margin-bottom: 10px">
-                            <div class="item-banner style7">
-                                <div class="inner" style="height: 300px">
-                                    <img src="{{ asset('images/image.jpeg') }}" style="width: 100%; height:100%">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="banner">
-                            <div class="item-banner style8">
-                                <div class="item-banner style7">
-                                    <div class="inner" style="height: 300px">
-                                        <img src="{{ asset('images/image.jpeg') }}" style="width: 100%; height:100%">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+<div class="slider-area slider-height-4">
+    <div class="hero-slider swiper-container">
+        <div class="swiper-wrapper">
+            <!-- Single Slider  -->
+            <div class="swiper-slide bg-img d-flex" style="background-image: url(assets/images/slider-image/sample-7.jpg);">
+                <div class="container align-self-center">
+                    <div class="slider-content-1 slider-animated-1 text-left pl-60px">
+                        <span class="animated color-gray">SUMMMER SALE !</span>
+                        <h1 class="animated color-black">
+                            Redmi K20 Pro <br />
+                            <strong>Up To 40% Off</strong>
+                        </h1>
+                        <a href="shop-4-column.html" class="shop-btn animated">SHOP NOW</a>
                     </div>
                 </div>
             </div>
+            <!-- Single Slider  -->
+            <div class="swiper-slide bg-img d-flex" style="background-image: url(assets/images/slider-image/sample-8.jpg);">
+                <div class="container align-self-center">
+                    <div class="slider-content-1 slider-animated-1 text-left pl-60px">
+                        <span class="animated color-gray">BLUETOOTH SPEAKER</span>
+                        <h1 class="animated color-black">
+                            Ambrane BT-5000 <br />
+                            <strong>Bluetooth Speaker</strong>
+                        </h1>
+                        <a href="shop-4-column.html" class="shop-btn animated">SHOP NOW</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Single Slider  -->
         </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination swiper-pagination-white"></div>
+    </div>
+</div>

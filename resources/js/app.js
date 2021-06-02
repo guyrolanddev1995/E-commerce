@@ -11,8 +11,7 @@ if(token){
 }
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-Vue.component('products-component', require('./components/ProductList.vue').default);
-Vue.component('products-slide-2-component', require('./components/ProductSlide2.vue').default);
+Vue.component('product-component', require('./components/Product.vue').default);
 
 const app = new Vue({
     el: '#app',
