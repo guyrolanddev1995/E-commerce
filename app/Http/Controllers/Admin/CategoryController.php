@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Contracts\CategoryContract;
 use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class CategoryController extends BaseController
 {
@@ -33,7 +34,6 @@ class CategoryController extends BaseController
     {
         $categories = $this->categoryRepository->listCategories();
 
-        $this->setPageTitle('Categories', 'List des catégories');
         return view('admin.categories.index', compact('categories'));
     }
 
@@ -59,9 +59,9 @@ class CategoryController extends BaseController
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|max:191',
+            'name' => 'required|unique:categories,name',
             'parent_id' => 'required|not_in:0',
-            'image' => 'mimes:jpg,jpeg,png|max:1000'
+            'image' => 'nullable|mimes:jpg,jpeg,png|max:1000'
         ]);
 
         $data = $request->except('_token');
@@ -72,8 +72,7 @@ class CategoryController extends BaseController
            return redirect()->back()->with('error','Une erreur est survenue lors de la création de la catégorie');
         }
 
-       return redirect()->back()->with('success','Catégorie créée avec succès');
-
+        return redirect()->back()->with('success','Catégorie créée avec succès');
     }
 
     /**
@@ -83,7 +82,7 @@ class CategoryController extends BaseController
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
+        {
         //
     }
 
@@ -93,13 +92,12 @@ class CategoryController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($slug)
     {
-        $targetCategory = $this->categoryRepository->findCategoryById($id);
+        $category = $this->categoryRepository->findBySlug($slug);
         $categories = $this->categoryRepository->treeList();
 
-        $this->setPageTitle('Categories', 'Editer #'.$targetCategory->slug);
-        return view('admin.categories.edit', compact('categories', 'targetCategory'));
+        return view('admin.categories.edit', compact('categories', 'category'));
     }
 
     /**
@@ -112,9 +110,9 @@ class CategoryController extends BaseController
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name'      =>  'required|max:191',
+            'name'      =>  ['required', Rule::unique('categories')->ignore($id)],
             'parent_id' =>  'required|not_in:0',
-            'image'     =>  'mimes:jpg,jpeg,png|max:1000'
+            'image'     =>  'nullable|mimes:jpg,jpeg,png|max:1000'
         ]);
     
         $data = $request->except('_token');
@@ -142,6 +140,6 @@ class CategoryController extends BaseController
         if (!$category) {
             return redirect()->back()->with('error','Une erreur est survenue lors de la suppression de la catégorie');
         }
-        return redirect()->route('admin.categories')->with('success','Categorie supprimée avec succès');
+        return redirect()->route('admin.categories.index')->with('success','Categorie supprimée avec succès');
     }
 }

@@ -1,38 +1,57 @@
-<div class="main-sidebar sidebar-style-2">
-    <aside id="sidebar-wrapper">
-      <div class="sidebar-brand">
-        <a href="index.html">  <span class="logo-name">ETLP</span>
-        </a>
-      </div>
-      <ul class="sidebar-menu">
-        <li class="menu-header">Main</li>
-        <li class="dropdown">
-          <a href="{{ route('admin.dashbord') }}" class="nav-link"><i data-feather="monitor"></i><span>Tableau de bord</span></a>
+<aside class="main-sidebar">
+
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+      <!-- Sidebar Menu -->
+      <ul class="sidebar-menu" data-widget="tree">
+        <li class="header">TABLEAU DE BORD</li>
+        <!-- Optionally, you can add icons to the links -->
+        <li class="active">
+          <a href="{{ route('admin.home') }}">
+            <i class="fa fa-dashboard"></i> <span>Tableau de bord</span>
+          </a>
         </li>
-        <li class="dropdown">
-          <a href="{{ route('admin.orders.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Commandes</span></a>
+        <li>
+            <a href="{{ route('admin.orders.index') }}"><i class="fa fa-shopping-cart" aria-hidden="true"></i> <span>Commandes</span></a>
         </li>
-        <li class="dropdown">
-            <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="mail"></i><span>Catégories</span></a>
-            <ul class="dropdown-menu">
-              <li><a class="nav-link" href="{{ route('admin.categories.create') }}">Nouvelle catégorie</a></li>
-              <li><a class="nav-link" href="{{ route('admin.categories.index') }}">Les catégories</a></li>
+
+        <li class="treeview">
+            <a href="#"><i class="fa fa-tags" aria-hidden="true"></i> <span>Categories</span>
+              <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="{{ route('admin.categories.create') }}">Ajouter une catégorie</a></li>
+              <li><a href="{{ route('admin.categories.index') }}">Voir les catégories</a></li>
             </ul>
         </li>
-        <li class="dropdown">
-            <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="mail"></i><span>Marques</span></a>
-            <ul class="dropdown-menu">
-              <li><a class="nav-link" href="{{ route('admin.brands.create') }}">Nouvelle Marque</a></li>
-              <li><a class="nav-link" href="{{ route('admin.brands.index') }}">Les Marques</a></li>
+     
+        <li class="treeview">
+            <a href="#"><i class="fa fa-bookmark" aria-hidden="true"></i> <span>Produits</span>
+              <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="{{ route('admin.products.create') }}">Ajouter un produit</a></li>
+              <li><a href="{{ route('admin.products.index') }}">Voir les produits</a></li>
             </ul>
         </li>
-        <li class="dropdown">
-            <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="mail"></i><span>Produits</span></a>
-            <ul class="dropdown-menu">
-              <li><a class="nav-link" href="{{ route('admin.products.create') }}">Nouveau produit</a></li>
-              <li><a class="nav-link" href="{{ route('admin.products.index') }}">Les produits</a></li>
-            </ul>
+        {{-- <li>
+            <a href="{{ route('admin.transporteurs.index') }}"><i class="fa fa-truck" aria-hidden="true"></i><span>Transporteurs</span></a>
         </li>
+        <li>
+            <a href="{{ route('admin.devise.index') }}"><i class="fa fa-balance-scale" aria-hidden="true"></i><span>Dévise</span></a>
+        </li>
+        <li>
+            <a href="{{ route('admin.media') }}"><i class="fa fa-picture-o" aria-hidden="true"></i><span>Média</span></a>
+        </li>
+        <li>
+            <a href="{{ route('admin.settings') }}"><i class="fa fa-cogs" aria-hidden="true"></i><span>Paramètre</span></a>
+        </li> --}}
       </ul>
-    </aside>
-  </div>
+      <!-- /.sidebar-menu -->
+    </section>
+    <!-- /.sidebar -->
+  </aside>

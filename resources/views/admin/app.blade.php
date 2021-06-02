@@ -1,55 +1,70 @@
 <!DOCTYPE html>
-<html lang="en">
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>{{ config('settings.site_title') }}</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <link rel="stylesheet" href="{{ asset('backend/bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{{ asset('backend/bower_components/font-awesome/css/font-awesome.min.css') }}">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="{{ asset("backend/bower_components/Ionicons/css/ionicons.min.css") }}">
+  <link rel="stylesheet" href="{{ asset('backend/bower_components/select2/dist/css/select2.min.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.2/dropzone.min.css"/>
+  <link rel="stylesheet" href="{{ asset('backend/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{{ asset('backend/css/AdminLTE.min.css') }}">
 
-  <meta name="csrf-token" content="{{ csrf_token() }}">
+  <link rel="stylesheet" href="{{ asset('backend/css/skins/skin-green.min.css') }}">
 
-  <title>Elleetluiparfum - Tableau de bord</title>
-  <!-- General CSS Files -->
-  <link rel="stylesheet" href="{{ asset('backend/assets/css/app.min.css') }}">
-  <!-- Template CSS -->
-  <link rel="stylesheet" href="{{ asset('backend/assets/css/style.css') }}">
-  <link rel="stylesheet" href="{{ asset('backend/assets/css/components.css') }}">
-  <!-- Custom style CSS -->
-  <link rel="stylesheet" href="{{ asset('backend/assets/css/custom.css') }}">
+  <link rel="icon" href="{{ asset('storage/'.config('settings.site_favicon')) }}">
+  
+  <livewire:styles />
 
   @yield('styles')
 
-  <livewire:styles />
 
-  <link rel='shortcut icon' type='image/x-icon' href='{{ asset('images/logo.png') }}' />
+  <!-- Google Font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 
-<body>
-  <div class="loader"></div>
-  <div id="app">
-    <div class="main-wrapper main-wrapper-1">
-      @include('admin.partials.header')
-      @include('admin.partials.sidebar')
-      <!-- Main Content -->
-      <div class="main-content">
-        <section class="section">
-          @yield('content')
-        </section>
-        @include('admin.partials.params')
-      </div>
-      @include('admin.partials.footer')
-    </div>
+<body class="hold-transition skin-green sidebar-mini">
+<div class="wrapper" id="app">
+
+  <!-- Main Header -->
+    @include('admin.partials.header')
+
+  <!-- Left side column. contains the logo and sidebar -->
+    @include('admin.partials.sidebar')
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    @yield('content')
   </div>
-  <!-- General JS Scripts -->
-  <script src="{{ asset('backend/assets/js/app.min.js') }}"></script>
+  <!-- /.content-wrapper -->
+
   
-  <script src="{{ asset('backend/assets/js/scripts.js') }}"></script>
-  <!-- Custom JS File -->
-  <script src="{{ asset('backend/assets/js/custom.js') }}"></script>
+  <div class="control-sidebar-bg"></div>
+</div>
 
-  @yield('scripts')
+    <script src="{{ asset('backend/bower_components/jquery/dist/jquery.min.js') }}"></script>
+    <script src="{{ asset('backend/bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('backend/bower_components/select2/dist/js/select2.full.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.2/min/dropzone.min.js"></script>
+    <script src="https://cdn.tiny.cloud/1/ayxl1uttmdfi98mz9g4snrn3k1td4mwfp19ol92yruhnn9ee/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="{{ asset('backend/js/adminlte.min.js') }}"></script>
+    <script src="{{ asset('backend/bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('backend/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
 
-  <livewire:scripts />
+    <livewire:scripts />
+
+    @yield('scripts')
 </body>
-
-
-<!-- blank.html  21 Nov 2019 03:54:41 GMT -->
 </html>

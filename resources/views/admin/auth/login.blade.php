@@ -1,100 +1,78 @@
 <!DOCTYPE html>
-<html lang="en">
-
-
-<!-- auth-login.html  21 Nov 2019 03:49:32 GMT -->
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-  <title>Otika - Admin Dashboard Template</title>
-  <!-- General CSS Files -->
-  <link rel="stylesheet" href="{{ asset('backend/assets/css/app.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('backend/assets/bundles/bootstrap-social/bootstrap-social.css') }}">
-  <!-- Template CSS -->
-  <link rel="stylesheet" href="{{ asset('backend/assets/css/style.css') }}">
-  <link rel="stylesheet" href="{{ asset('backend/assets/css/components.css') }}">
-  <!-- Custom style CSS -->
-  <link rel="stylesheet" href="assets/css/custom.css">
-  <link rel='shortcut icon' type='image/x-icon' href='{{ asset('backend/assets/img/favicon.ico') }}' />
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>BINGUE CARREFOUR | Connexion</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+ 
+  <link rel="stylesheet" href="{{ asset('backend/bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{{ asset('backend/bower_components/font-awesome/css/font-awesome.min.css') }}">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="{{ asset("backend/bower_components/Ionicons/css/ionicons.min.css") }}">
+  <link rel="stylesheet" href="{{ asset('backend/bower_components/select2/dist/css/select2.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('backend/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{{ asset('backend/css/AdminLTE.min.css') }}">
+  <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
+        page. However, you can choose any other skin. Make sure you
+        apply the skin class to the body tag so the changes take effect. -->
+  <link rel="stylesheet" href="{{ asset('backend/css/skins/skin-green.min.css') }}">
+
+  <link rel="icon" href="{{ asset('/images/logo.jpeg') }}">
+  <!-- Google Font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-
-<body>
-  <div class="loader"></div>
-  <div id="app">
-    <section class="section">
-      <div class="container mt-5">
-        <div class="row">
-          <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
-            <div class="card card-primary">
-              <div class="card-header">
-                <h4>Login</h4>
-              </div>
-              <div class="card-body">
-                <form action="{{ route('admin.login.post') }}" method="POST" role="form" class="needs-validation" novalidate="">
-                  @csrf
-                  <div class="form-group">
-                    <label for="email">Email</label>
-                    <input id="email" type="email" class="form-control" name="email" tabindex="1" required autofocus placeholder="Adresse Email" autofocus value="{{ old('email') }}" required autocomplete="off">
-                    <div class="invalid-feedback">
-                      Please fill in your email
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="d-block">
-                      <label for="password" class="control-label">Mot de passe</label>
-                    </div>
-                    <input id="password" type="password" class="form-control" name="password" placeholder="Mot de passe" required autocomplete="off" tabindex="2" required>
-                    <div class="invalid-feedback">
-                      please fill in your password
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="custom-control custom-checkbox">
-                      <input type="checkbox" name="remember" class="custom-control-input" tabindex="3" id="remember-me">
-                      <label class="custom-control-label" for="remember-me">Remember Me</label>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
-                      Login
-                    </button>
-                  </div>
-                </form>
-                <div class="text-center mt-4 mb-3">
-                  <div class="text-job text-muted">Login With Social</div>
-                </div>
-                <div class="row sm-gutters">
-                  <div class="col-6">
-                    <a class="btn btn-block btn-social btn-facebook">
-                      <span class="fab fa-facebook"></span> Facebook
-                    </a>
-                  </div>
-                  <div class="col-6">
-                    <a class="btn btn-block btn-social btn-twitter">
-                      <span class="fab fa-twitter"></span> Twitter
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="mt-5 text-muted text-center">
-              Don't have an account? <a href="auth-register.html">Create One</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+<body class="hold-transition login-page">
+<div class="login-box">
+  <div class="login-logo">
+    <img src="{{ asset('images/logo.png') }}" alt="" style="width: 40%; height:40%">
+    <h2>Espace Administration</h2>
   </div>
-  <!-- General JS Scripts -->
-  <script src="{{ asset('backend/assets/js/app.min.js') }}"></script>
-  <!-- JS Libraies -->
-  <!-- Page Specific JS File -->
-  <!-- Template JS File -->
-  <script src="{{ asset('backend/assets/js/scripts.js') }}"></script>
-  <!-- Custom JS File -->
-  <script src="{{ asset('backend/assets/js/custom.js') }}"></script>
+  <!-- /.login-logo -->
+  <div class="login-box-body">
+    <p class="login-box-msg">Connectez-vous </p>
+
+    <form action="{{ route('admin.login.post') }}" method="POST">
+       @csrf
+      <div class="form-group has-feedback">
+        <input type="email" name="email" class="form-control" placeholder="Email">
+        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+      </div>
+      <div class="form-group has-feedback">
+        <input type="password" name="password" class="form-control" placeholder="Mot de passe">
+        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+      </div>
+      <div class="row">
+        
+        <!-- /.col -->
+        <div class="col-xs-12">
+          <button type="submit" class="btn btn-primary btn-block btn-flat">Se connecter</button>
+        </div>
+        <!-- /.col -->
+      </div>
+    </form>
+  </div>
+  <!-- /.login-box-body -->
+</div>
+<!-- /.login-box -->
+
+<!-- jQuery 3 -->
+<script src="{{ asset('backend/bower_components/jquery/dist/jquery.min.js') }}"></script>
+<script src="{{ asset('backend/bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('backend/plugins/iCheck/icheck.min.js') }}"></script>
+<!-- iCheck -->
+<script src="../../"></script>
+<script>
+  $(function () {
+    $('input').iCheck({
+      checkboxClass: 'icheckbox_square-blue',
+      radioClass: 'iradio_square-blue',
+      increaseArea: '20%' /* optional */
+    });
+  });
+</script>
 </body>
-
-
-<!-- auth-login.html  21 Nov 2019 03:49:32 GMT -->
 </html>

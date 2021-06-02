@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['prefix' => 'elleetluiparfums-admin'], function () {
+Route::group(['prefix' => 'admin'], function () {
     Route::get("login", 'Admin\AuthController@showLoginForm')->name('admin.login');
     Route::post('login', 'Admin\AuthController@login')->name('admin.login.post');
     Route::get('logout', 'Admin\AuthController@logout')->name('admin.logout');
@@ -8,7 +8,7 @@ Route::group(['prefix' => 'elleetluiparfums-admin'], function () {
     Route::group(['middleware' => ['auth:admin']], function(){
         Route::get('/home', function(){
             return view('admin.dashbord.index');
-        })->name('admin.dashbord');
+        })->name('admin.home');
 
         // Route::get("/settings", 'Admin\SettingController@index')->name('admin.settings');
         // Route::post('/settings', 'Admin\SettingController@update')->name('admin.settings.update');
@@ -18,7 +18,7 @@ Route::group(['prefix' => 'elleetluiparfums-admin'], function () {
             'create' => 'admin.categories.create',
             'index'  => 'admin.categories.index',
             'store' => 'admin.categories.store',
-            'edit' => 'admin.categories.edit',
+                'edit' => 'admin.categories.edit',
             'update' => 'admin.categories.update',
         ]);
 

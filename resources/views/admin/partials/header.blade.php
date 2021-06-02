@@ -1,43 +1,111 @@
-<div class="navbar-bg"></div>
-<nav class="navbar navbar-expand-lg main-navbar sticky">
-  <div class="form-inline mr-auto">
-    <ul class="navbar-nav mr-3">
-      <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg
-                              collapse-btn"> <i data-feather="align-justify"></i></a></li>
-      <li><a href="#" class="nav-link nav-link-lg fullscreen-btn">
-          <i data-feather="maximize"></i>
-        </a></li>
-      <li>
-        <form class="form-inline mr-auto">
-          <div class="search-element">
-            <input class="form-control" type="search" placeholder="Search" aria-label="Search" data-width="200">
-            <button class="btn" type="submit">
-              <i class="fas fa-search"></i>
-            </button>
-          </div>
-        </form>
-      </li>
-    </ul>
-  </div>
-  <ul class="navbar-nav navbar-right">
-    @include('admin.partials.notifications')
-    <li class="dropdown"><a href="#" data-toggle="dropdown"
-        class="nav-link dropdown-toggle nav-link-lg nav-link-user"> <img alt="image" src="assets/img/user.png"
-          class="user-img-radious-style"> <span class="d-sm-none d-lg-inline-block"></span></a>
-      <div class="dropdown-menu dropdown-menu-right pullDown">
-        <div class="dropdown-title">Hello Sarah Smith</div>
-        <a href="profile.html" class="dropdown-item has-icon"> <i class="far
-                                  fa-user"></i> Profile
-        </a> <a href="timeline.html" class="dropdown-item has-icon"> <i class="fas fa-bolt"></i>
-          Activities
-        </a> <a href="#" class="dropdown-item has-icon"> <i class="fas fa-cog"></i>
-          Settings
-        </a>
-        <div class="dropdown-divider"></div>
-        <a href="{{ route('admin.logout') }}" class="dropdown-item has-icon text-danger"> <i class="fas fa-sign-out-alt"></i>
-          Se déconnecter
-        </a>
+<header class="main-header">
+    <!-- Logo -->
+    <a href="#" class="logo">
+      <!-- mini logo for sidebar mini 50x50 pixels -->
+      <span class="logo-mini"><b>B</b>CF</span>
+      <!-- logo for regular state and mobile devices -->
+      <span class="logo-lg">{{ config('settings.site_title') }}</span>
+    </a>
+
+    <!-- Header Navbar -->
+    <nav class="navbar navbar-static-top" role="navigation">
+      <!-- Sidebar toggle button-->
+      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+        <span class="sr-only">Toggle navigation</span>
+      </a>
+      <!-- Navbar Right Menu -->
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+          <!-- Messages: style can be found in dropdown.less-->
+          <li class="dropdown messages-menu">
+            <!-- Menu toggle button -->
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-envelope-o"></i>
+              <span class="label label-success">4</span>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="header">You have 4 messages</li>
+              <li>
+                <!-- inner menu: contains the messages -->
+                <ul class="menu">
+                  <li><!-- start message -->
+                    <a href="#">
+                      <div class="pull-left">
+                        <!-- User Image -->
+                        <img src="{{ asset('backend/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
+                      </div>
+                      <!-- Message title and timestamp -->
+                      <h4>
+                        Support Team
+                        <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                      </h4>
+                      <!-- The message -->
+                      <p>Why not buy a new awesome theme?</p>
+                    </a>
+                  </li>
+                  <!-- end message -->
+                </ul>
+                <!-- /.menu -->
+              </li>
+              <li class="footer"><a href="#">See All Messages</a></li>
+            </ul>
+          </li>
+          <!-- /.messages-menu -->
+
+          <!-- Notifications Menu -->
+          <li class="dropdown notifications-menu">
+            <!-- Menu toggle button -->
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-bell-o"></i>
+              <span class="label label-warning">10</span>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="header">You have 10 notifications</li>
+              <li>
+                <!-- Inner Menu: contains the notifications -->
+                <ul class="menu">
+                  <li><!-- start notification -->
+                    <a href="#">
+                      <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                    </a>
+                  </li>
+                  <!-- end notification -->
+                </ul>
+              </li>
+              <li class="footer"><a href="#">View all</a></li>
+            </ul>
+          </li>
+     
+        
+          <!-- User Account Menu -->
+          <li class="dropdown user user-menu">
+            <!-- Menu Toggle Button -->
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <!-- The user image in the navbar-->
+              <img src="{{ asset('backend/img/user2-160x160.jpg') }}" class="user-image" alt="User Image">
+              <!-- hidden-xs hides the username on small devices so only the image appears. -->
+              <span class="hidden-xs">{{ Auth::user()->name }}</span>
+            </a>
+            <ul class="dropdown-menu">
+              <!-- The user image in the menu -->
+              <li class="user-header">
+                <img src="{{ asset('backend/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
+
+                <p>
+                  {{ Auth::user()->name }}
+                </p>
+              </li>
+              <!-- Menu Body -->
+      
+              <!-- Menu Footer-->
+              <li class="user-footer">
+                <div class="pull-right">
+                  <a href="{{ route('admin.logout') }}" class="btn btn-default btn-flat">Se déconnecter</a>
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
       </div>
-    </li>
-  </ul>
-</nav>
+    </nav>
+</header>

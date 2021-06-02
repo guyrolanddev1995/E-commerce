@@ -11,6 +11,8 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\UploadedFile;
 use InvalidArgumentException;
 
+use function PHPUnit\Framework\isNull;
+
 class CategoryRepository extends BaseRepository implements CategoryContract
 {
     use UploadAble;
@@ -30,7 +32,10 @@ class CategoryRepository extends BaseRepository implements CategoryContract
      */
     public function listCategories(string $order = "id", string $sort = "desc", array $columns = ['*'])
     {
-        return $this->all($columns, $order, $sort);
+        return Category::where('parent_id', '<>', '' )
+                        ->with('parent')
+                        ->orderby($order, $sort)
+                        ->get($columns);
     }
 
      /**
@@ -64,14 +69,14 @@ class CategoryRepository extends BaseRepository implements CategoryContract
 
             $featured = $collection->has('featured') ? 1 : 0;
             $menu = $collection->has('menu') ? 1 : 0;
-            $display = $collection->has('display') ? 1 :  0;
+
 
             $category = Category::create([
                 'name' => $data['name'],
                 'slug' => \Str::slug($data['name'], '-'),
                 'featured' => $featured,
                 'menu' => $menu,
-                'display' => $display,
+                'niveau' => $data['niveau'] ? $data['niveau'] : '1',
                 'image' => $image,
                 'parent_id' => $data['parent_id']
             ]);
@@ -105,14 +110,13 @@ class CategoryRepository extends BaseRepository implements CategoryContract
 
         $featured = $collection->has('featured') ? 1 : 0;
         $menu = $collection->has('menu') ? 1 :  0;
-        $display = $collection->has('display') ? 1 :  0;
 
         $category->update([
             'name' => $data['name'],
             'slug' => \Str::slug($data['name'], '-'),
             'featured' => $featured,
             'menu' => $menu,
-            'display' => $display,
+            'niveau' => $data['niveau'],
             'image' => $image,
             'parent_id' => $data['parent_id']
         ]);
@@ -135,6 +139,22 @@ class CategoryRepository extends BaseRepository implements CategoryContract
         $category->delete();
 
         return $category;
+    }
+
+
+    /**
+     * Filtrer une catégorie
+     * @param Array data
+     * @return mixed
+     */
+    public function filterCategory($data)
+    {
+        $root = Category::whereNull('parent_id')
+                        ->with('children')
+                        ->orderBy('name', 'asc')
+                        ->get();
+
+       return $root;
     }
 
     /**

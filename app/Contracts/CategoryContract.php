@@ -47,6 +47,12 @@ interface CategoryContract
      */
     public function treeList();
 
+    /**
+     * @param Array $data
+     * @return mixed
+     */
+    public function filterCategory($data);
+
 
     /**
      * @param string $slug
