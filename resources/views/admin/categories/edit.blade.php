@@ -68,7 +68,11 @@
                 <div class="form-group my-5">
                     <div class="row">
                         <div class="col-md-4">
-                            <img src="https://via.placeholder.com/80x80?text=Placeholder+Image" id="category_preview" style="width:250px; height: 200px;">
+                          @if ($category->image != null)
+                              <img src="{{ asset('storage/'.$category->image) }}" id="imagePreview" style="width: 250px; height: 200px;">
+                          @else
+                              <img src="https://via.placeholder.com/80x80?text=Placeholder+Image" id="imagePreview" style="width: 250px; height: 200px;">
+                          @endif
                         </div>
                         <div class="col-md-8">
                             <div class="form-group">

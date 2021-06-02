@@ -87,6 +87,7 @@ class ProductRepository extends BaseRepository implements ProductContract
                 'status' => $status,
                 'is_new' => $is_new,
                 'featured' => $featured,
+                'height' => $params['poids'] ?? Null
             ]);
 
             if ($collection->has('categories')) {

@@ -22,10 +22,11 @@ class CreateProductsTable extends Migration
             $table->text('description')->nullable();
             $table->text('caracteristique')->nullable();
             $table->unsignedBigInteger('quantity');
+            $table->double('height')->nullable();
             $table->integer('price')->nullable();
             $table->integer('sale_price')->nullable();
-            $table->boolean('status')->default(0);
-            $table->boolean('featured')->default(0);
+            $table->boolean('status')->default(false);
+            $table->boolean('featured')->default(false);
             $table->integer('stock')->nullable()->default('1');
             $table->boolean('is_new')->nullable()->default(false);
             $table->text('product_image');

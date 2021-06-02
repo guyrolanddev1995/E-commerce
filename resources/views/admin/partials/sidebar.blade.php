@@ -26,7 +26,7 @@
               <li><a href="{{ route('admin.categories.index') }}">Voir les catégories</a></li>
             </ul>
         </li>
-     
+
         <li class="treeview">
             <a href="#"><i class="fa fa-bookmark" aria-hidden="true"></i> <span>Produits</span>
               <span class="pull-right-container">
@@ -37,6 +37,10 @@
               <li><a href="{{ route('admin.products.create') }}">Ajouter un produit</a></li>
               <li><a href="{{ route('admin.products.index') }}">Voir les produits</a></li>
             </ul>
+        </li>
+
+        <li>
+            <a href="{{ route('admin.brands.index') }}"><i class="fa fa-truck" aria-hidden="true"></i><span>Marques</span></a>
         </li>
         {{-- <li>
             <a href="{{ route('admin.transporteurs.index') }}"><i class="fa fa-truck" aria-hidden="true"></i><span>Transporteurs</span></a>

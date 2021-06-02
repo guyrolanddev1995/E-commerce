@@ -22,25 +22,18 @@ class BrandController extends BaseController
         $this->brandRepository = $brandRepository;
     }
 
-    public function index()
+    public function create()
     {
         $brands = $this->brandRepository->listBrands();
 
-        $this->setPageTitle('Marques', 'Liste des marques');
-        return view('admin.brands.index', compact('brands'));
-    }
-
-    public function create()
-    {
-        $this->setPageTitle('Marque', 'Ajouter une marque');
-        return view('admin.brands.create');
+        return view('admin.brands.create', compact('brands'));
     }
 
     public function store(Request $request)
     {
         $this->validate($request, [
             'name'      =>  'required|max:191',
-            'image'     =>  'mimes:jpg,jpeg,png|max:1000'
+            'logo'     =>  'required|mimes:jpg,jpeg,png|max:1000'
         ]);
 
         $params = $request->except('_token');

@@ -31,13 +31,13 @@ class ProductController extends BaseController
     {
         $products = $this->productRepository->listProducts();
 
-        $this->setPageTitle('Produits', 'Liste des produits');
         return view('admin.products.index', compact('products'));
     }
 
     public function create()
     {
         $brands = $this->brandRepository->listBrands('name', 'asc');
+
         $categories = $this->categoryRepository->getSubCategories();
 
         $this->setPageTitle('Produit', 'Créer un produit');

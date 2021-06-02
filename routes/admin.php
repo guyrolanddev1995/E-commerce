@@ -10,6 +10,10 @@ Route::group(['prefix' => 'admin'], function () {
             return view('admin.dashbord.index');
         })->name('admin.home');
 
+        Route::get('/', function(){
+            return view('admin.dashbord.index');
+        })->name('admin.home');
+
         // Route::get("/settings", 'Admin\SettingController@index')->name('admin.settings');
         // Route::post('/settings', 'Admin\SettingController@update')->name('admin.settings.update');
 
@@ -51,8 +55,7 @@ Route::group(['prefix' => 'admin'], function () {
         // });
 
         Route::group(['prefix'  =>   'brands'], function() {
-            Route::get('/', 'Admin\BrandController@index')->name('admin.brands.index');
-            Route::get('/create', 'Admin\BrandController@create')->name('admin.brands.create');
+            Route::get('/', 'Admin\BrandController@create')->name('admin.brands.index');
             Route::post('/store', 'Admin\BrandController@store')->name('admin.brands.store');
             Route::get('/{id}/edit', 'Admin\BrandController@edit')->name('admin.brands.edit');
             Route::post('/update', 'Admin\BrandController@update')->name('admin.brands.update');

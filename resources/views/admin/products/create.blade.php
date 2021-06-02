@@ -1,238 +1,227 @@
 @extends('admin.app')
-@section('styles')
-<link rel="stylesheet" href="{{ asset('backend/assets/bundles/select2/dist/css/select2.min.css') }}">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.2/dropzone.min.css" integrity="sha512-3g+prZHHfmnvE1HBLwUnVuunaPOob7dpksI7/v6UnF/rnKGwHf/GdEq9K7iEN7qTtW+S0iivTcGpeTBqqB04wA==" crossorigin="anonymous" />
-@endsection
+
 @section('content')
-<div class="section-body">
-  <div class="row">
-    <div class="col-12">
+<div>
+    <section class="content-header">
+        <h1> 
+           Nouveau produit
+        </h1>
+        <ol class="breadcrumb">
+          <li><a href="{{ route('admin.home') }}"><i class="fa fa-dashboard"></i> Tableau de bord</a></li>
+          <li class="active">nouveau produit</li>
+        </ol>
+    </section>
+    
+      <!-- Main content -->
+    <section class="content container-fluid" style="margin-top:30px">
         @include('admin.partials.flash')
-        <form action="{{ route('admin.products.store') }}" method="POST" role="form" enctype="multipart/form-data">
-            @csrf
-            <div class="card">
-                <div class="card-header">
-                  <h4>Informations du produit</h4>
-                </div>
-                <div class="card-body">
-                  <div class="form-group">
-                      <label class="control-label" for="name">Nom du produit <span class="m-l-5 text-danger"> *</span></label>
-                      <input class="form-control @error('name') is-invalid @enderror" type="text" name="name" id="name" value="{{ old('name') }}"/>
-                      @error('name') 
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                      @enderror
-                  </div>
-                  <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label" for="sku">Référence du produit</label>
-                                <input
-                                    class="form-control @error('sku') is-invalid @enderror"
-                                    type="text"
-                                    placeholder="Entrer le sku du produit"
-                                    id="sku"
-                                    name="sku"
-                                    value="{{ old('sku') }}"
-                                />
-                                <div class="invalid-feedback">
-                                    <i class="fa fa-exclamation-circle fa-fw"></i> @error('sku') <span>{{ $message }}</span> @enderror
-                                </div>
+        <div class="row mt-4">
+            <!-- left column -->
+            <div class="col-md-12">
+                <form role="form"action="{{ route('admin.products.store') }}" method="POST" role="form" enctype="multipart/form-data">
+                    @csrf
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Informations</h3>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                                </button>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="box-body">
+                            <div class="form-group @error('name') has-error @enderror">
+                            <label for="name">Nom</label>
+                            <input type="text" name="name" class="form-control @error('name') is-invalid @enderror " id="name" value='{{ old('name') }}' placeholder="Entrer le nom du produit">
+                            @error('name') 
+                                <label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i>
+                                    {{ $message }}
+                                </label>
+                            @enderror
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group  @error('sku') has-error @enderror">
+                                        <label class="control-label" for="sku">Référence du produit</label>
+                                        <input
+                                            class="form-control @error('sku') is-invalid @enderror"
+                                            type="text"
+                                            placeholder="Entrer le sku du produit"
+                                            id="sku"
+                                            name="sku"
+                                            value="{{ old('sku') }}"
+                                        />
+                                        @error('sku') 
+                                            <label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i>
+                                                {{ $message }}
+                                            </label>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group @error('brand_id') has-error @enderror">
+                                        <label class="control-label" for="brand_id">Marque</label>
+                                        <select name="brand_id" id="brand_id" class="form-control @error('brand_id') is-invalid @enderror">
+                                            <option value="0">Selectionner une marque</option>
+                                            @foreach($brands as $brand)
+                                                <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('brand_id') 
+                                            <label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i>
+                                                {{ $message }}
+                                            </label>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
                             <div class="form-group">
-                                <label class="control-label" for="brand_id">Marque</label>
-                                <select name="brand_id" id="brand_id" class="form-control @error('brand_id') is-invalid @enderror">
-                                    <option value="0">Selectionner une marque</option>
-                                    @foreach($brands as $brand)
-                                        <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                                <label class="control-label" for="categories">Categories</label>
+                                <select name="categories[]" id="categories" class="form-control select2" multiple="" data-placeholder="Sélectionner les catégories">
+                                    @foreach($categories as $categorie)
+                                        <option value="{{ $categorie->id }}">{{ $categorie->name }}</option>
+                                        @if(count($categorie->children) > 0)
+                                            @foreach ($categorie->children as $child)
+                                                <option value="{{ $child->id }}">- - {{ $child->name }}</option>
+                                                @if(count($child->children) > 0)
+                                                    @foreach ($child->children as $item)
+                                                        <option value="{{ $item->id }}">- - - - {{ $item->name }}</option>
+                                                    @endforeach
+                                                @endif
+                                            @endforeach
+                                        @endif
                                     @endforeach
                                 </select>
-                                <div class="invalid-feedback active">
-                                    <i class="fa fa-exclamation-circle fa-fw"></i> @error('brand_id') <span>{{ $message }}</span> @enderror
-                                </div>
                             </div>
-                        </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-12">
-                        <div class="form-group">
-                            <label class="control-label" for="categories">Categories</label>
-                            <select name="categories[]" id="categories" class="form-control select2" multiple="">
-                                        @foreach($categories as $categorie)
-                                            <option value="{{ $categorie->id }}">{{ $categorie->name }}</option>
-                                            @if(count($categorie->children) > 0)
-                                                @foreach ($categorie->children as $child)
-                                                    <option value="{{ $child->id }}">- - {{ $child->name }}</option>
-                                                    @if(count($child->children) > 0)
-                                                        @foreach ($child->children as $item)
-                                                            <option value="{{ $item->id }}">- - - - {{ $item->name }}</option>
-                                                        @endforeach
-                                                    @endif
-                                                @endforeach
-                                            @endif
-                                        @endforeach
-                            </select>
-                            <div class="invalid-feedback active">
-                                <i class="fa fa-exclamation-circle fa-fw"></i> @error('category_id') <span>{{ $message }}</span> @enderror
-                            </div>
-                        </div>
-                    </div>
-                 </div>
-                 <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label" for="price">Prix</label>
-                                <input
-                                    class="form-control @error('price') is-invalid @enderror"
-                                    type="text"
-                                    placeholder="Entrer le prix du produit"
-                                    id="price"
-                                    name="price"
-                                    value="{{ old('price') }}"
-                                />
-                                <div class="invalid-feedback active">
-                                    <i class="fa fa-exclamation-circle fa-fw"></i> @error('price') <span>{{ $message }}</span> @enderror
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label" for="sale_price">Prix special</label>
-                                <input
-                                    class="form-control"
-                                    type="text"
-                                    placeholder="Entrer le prix special du produit"
-                                    id="sale_price"
-                                    name="sale_price"
-                                    value="{{ old('sale_price') }}"
-                                />
-                            </div>
-                        </div>
-                  </div>
-                  <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label" for="quantity">Quantité du produit en stock</label>
-                                <input
-                                    class="form-control @error('quantity') is-invalid @enderror"
-                                    type="number"
-                                    placeholder="Entrer la quantité du produit"
-                                    id="quantity"
-                                    name="quantity"
-                                    value="{{ old('quantity') }}"
-                                />
-                                <div class="invalid-feedback active">
-                                    <i class="fa fa-exclamation-circle fa-fw"></i> @error('quantity') <span>{{ $message }}</span> @enderror
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label" for="stock">Seuil de stock du produit</label>
-                                <input
-                                    class="form-control"
-                                    type="text"
-                                    placeholder="Entrer le seuil à partir du quel reapprovisionner le stock"
-                                    id="stock"
-                                    name="stock"
-                                    value="{{ old('stock') }}"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="form-group my-5">
-                                <label class="control-label" for="caracteristique">Caracteristiques du produit</label>
-                                <textarea name="caracteristique" id="caracteristique" class="form-control"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                  <div class="form-group my-md-5">
-                      <div class="row">
-                          <div class="col-12 col-md-4">
-                              <img src="https://via.placeholder.com/100x100?text=Placeholder+Image" id="category_preview" style="width:250px; height: 200px;">
-                          </div>
-                          <div class="col-12 col-md-8">
-                              <div class="form-group">
-                                  <label class="control-label">Selectionner l'image de couverture du produit</label>
-                                  <input class="form-control @error('image') is-invalid @enderror" type="file" id="image" name="image" onchange="loadFile(event,'category_preview')"/>
-                                  @error('image') 
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
+    
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group @error('price') has-error @enderror">
+                                        <label for="price">Prix du produit</label>
+                                        <input type="text" name="price" class="form-control @error('price') is-invalid @enderror" value="{{ old('price') }}" id="price" placeholder="Entrer le prix du produit">
+                                        @error('price') 
+                                            <label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i>
+                                                {{ $message }}
+                                            </label>
+                                        @enderror
                                     </div>
-                                  @enderror
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="form-group">
-                        <label class="control-label" for="description">Description</label>
-                        <textarea name="description" id="description" rows="8" class="form-control"></textarea>
-                  </div>
-                  <div class="form-group">
-                    <div class="form-check">
-                        <label class="form-check-label">
-                            <input class="form-check-input"
-                                   type="checkbox"
-                                   id="status"
-                                   name="status"
-                                />Mettre le produit en ligne
-                        </label>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="form-group">
-                        <div class="form-check">
-                            <label class="form-check-label">
-                                <input class="form-check-input"
-                                       type="checkbox"
-                                       id="featured"
-                                       name="featured"
-                                    />Definir comme produit en vedette
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="sale_price">Prix spécial du produit</label>
+                                        <input type="text" name="sale_price" class="form-control @error('sale_price') is-invalid @enderror" id="sale_price"  value="{{ old('sale_price') }}" placeholder="Entrer le prix spécial du produit">
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group @error('quantity') has-error @enderror">
+                                        <label for="quantity">Quantité</label>
+                                        <input type="number" name="quantity" class="form-control @error('quantity') is-invalid @enderror " id="quantity" value="{{ old('quantity') }}" placeholder="">
+                                        @error('quantity') 
+                                            <label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i>
+                                                {{ $message }}
+                                            </label>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="stock">Seuil de stock</label>
+                                        <input type="number" name="stock" class="form-control @error('stock') is-invalid @enderror" value="{{ old('stock') }}" id="stock" placeholder="">
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                <div class="form-group @error('min_quantity') has-error @enderror">
+                                    <label for="min_quantity">Quantité minimum</label>
+                                    <input type="number" name="min_quantity" class="form-control @error('min_quantity') is-invalid @enderror" id="min_quantity" value="{{ old('min_quantity') }}" placeholder="Entrer la quantité mininale">
+                                </div>
+                            </div>
+                                <div class="col-md-3">
+                                    <div class="form-group @error('poids') has-error @enderror">
+                                        <label for="poids">Poids du produit(kg)</label>
+                                        <input type="number" step=".01" name="poids" class="form-control @error('poids') is-invalid @enderror" id="poids" value="{{ old('poids') }}" placeholder="Entrer le poids du produit">
+                                        @error('poids') 
+                                            <label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i>
+                                                {{ $message }}
+                                            </label>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <div class="form-group">
+                                <label class="control-label" for="caracteristique">Caracteristiques du produit</label>
+                                <textarea name="caracteristique" id="caracteristique" class="form-control @error('caracteristique') is-invalid @enderror">{{ old('caracteristique') }}</textarea>
+                            </div>
+    
+                            <div class="form-group" style="margin: 50px 0px">
+                                <div class="row">
+                                    <div class="col-12 col-md-4">
+                                        <img src="https://via.placeholder.com/100x100?text=Placeholder+Image" id="category_preview" style="width:250px; height: 200px;">
+                                    </div>
+                                    <div class="col-12 col-md-8">
+                                        <div class="form-group @error('image') has-error @enderror">
+                                            <label class="control-label">Selectionner l'image de couverture du produit</label>
+                                            <input class="form-control @error('image') is-invalid @enderror" type="file" id="image" name="image" onchange="loadFile(event,'category_preview')"/>
+                                            @error('image') 
+                                                <label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i>
+                                                    {{ $message }}
+                                                </label>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <div class="form-group">
+                                <label class="control-label" for="description">Description du produit</label>
+                                <textarea name="description" id="description" rows="8" class="form-control @error('description') is-invalid @enderror">{{ old('description') }}</textarea>
+                            </div>
+                        
+                            <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="status"  {{ old('status') }}> Mettre le produit en ligne
                             </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                <input type="checkbox" name="is_new"  {{ old('is_new') }}> Definir comme nouvel arrivage
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="featured" {{ old('featured') }}> Definir comme produit en vedette
+                                </label>
+                            </div>
                         </div>
                     </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="form-check">
-                        <label class="form-check-label">
-                            <input class="form-check-input"
-                                   type="checkbox"
-                                   id="is_new"
-                                   name="is_new"
-                                />Definir comme nouveau produit
-                        </label>
-                    </div>
-                  </div>
-                </div>
-            </div>
-            
-            <div class="card">
-                <div class="card-header">
-                  <h4>Images du produit</h4>
-                </div>
-                <div class="card-body">
-                    <div class="dropzone" id="galerie" style="border: 2px dashed rgba(0,0,0,0.3)"></div>
-                </div>
-            </div>
 
-            <div class="text-right">
-                <button class="btn btn-primary mr-1" type="submit">Enregistrer le produit</button>
-                <a href="{{ route('admin.categories.index') }}" class="btn btn-danger" type="reset">Retour</a>
-            </div>
-        </form> 
-    </div>
-  </div>
+                    <!-- Galerie photos -->
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Galerie photos</h3>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <div class="dropzone" id="galerie" style="border: 2px dashed rgba(0,0,0,0.3)"></div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary pull-right">Enregistrer</button>
+                </form>   
+          </div>
+    </section>
 </div>
 @endsection
 @section('scripts')
     <script src="https://cdn.tiny.cloud/1/ayxl1uttmdfi98mz9g4snrn3k1td4mwfp19ol92yruhnn9ee/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>  
-    <script src="{{ asset('backend/assets/bundles/select2/dist/js/select2.full.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.2/min/dropzone.min.js"></script>
     <script>
         Dropzone.autoDiscover = false;
@@ -327,5 +316,10 @@
                 @endif
             }
         });
+
+        $(function () {
+            $('.select2').select2()
+        });
     </script>
 @endsection
+
