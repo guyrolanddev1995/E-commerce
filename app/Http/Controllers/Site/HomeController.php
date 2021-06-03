@@ -9,6 +9,7 @@ use App\Contracts\ProductContract;
 use App\Http\Controllers\Controller;
 use App\Product;
 use App\Slide;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -24,11 +25,7 @@ class HomeController extends Controller
 
     public function index()
     {
-        $products = Product::where('status', 1)
-                            ->orderBy('created_at','desc')
-                            ->limit(12)
-                            ->get();
-
+    
         $featured = Product::where('featured', 1)
                             ->where('status', 1)
                             ->inRandomOrder()
@@ -41,8 +38,26 @@ class HomeController extends Controller
                             ->limit(16)
                             ->get();
 
+        $categories = Category::where('niveau', '2')
+                              ->whereHas('children')
+                              ->where('featured', 1)
+                              ->with(['children' => function($query){
+                                  return $query->where('niveau', '3')
+                                        ->where('featured', 1)
+                                        ->whereHas('products')
+                                        ->with('products')
+                                        ->get();
+                              }])
+                              ->orderBy('name', 'asc')
+                              ->get();
+
+        $recent_added = Product::whereDate('created_at', '<=' ,Carbon::now()->addDays(7)->format('Y-m-d'))
+                                ->orderBy('created_at', 'desc')
+                                ->limit(24)
+                                ->get();
+
         return view('site.pages.home', compact(
-            'products', 'featured', 'new_products'
+            'recent_added', 'featured', 'new_products', 'categories'
         ));
     }
 }

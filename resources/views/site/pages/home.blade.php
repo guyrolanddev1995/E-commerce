@@ -2,50 +2,50 @@
 
 @section('content')
 @include('site.partials.banner')
-<div class="feature-area mt-60px mb-30px">
-    <div class="feature-tab-area mt-60px">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="section-title-underline">
-                        <ul class="nav-tabs nav">
-                            <li><a class="active" data-toggle="tab" href="#newarrival">Nouvel Arrivage</a></li>
-                            <li><a  data-toggle="tab" href="#featured">Nos Tendances</a></li>
-                        </ul>
+<div class="feature-tab-area mt-60px">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-title-underline">
+                    <ul class="nav-tabs nav">
+                        <li><a class="active" data-toggle="tab" href="#newarrival">Nouvels Arrivages</a></li>
+                        <li><a  data-toggle="tab" href="#bestseller">Nos Tendances</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="tab-content">
+            <div id="newarrival" class="tab-pane active">
+                <div class="feature-slider slider-nav-style-1">
+                    <div class="feature-slider-wrapper swiper-wrapper">
+                        <!-- Single Item -->
+                        @foreach ($new_products as $item)
+                        <div class="feature-slider-item swiper-slide">
+                            <product-component :product="{{ $item }}"></product-component>
+                        </div>
+                        @endforeach
+                    </div>
+                    <!-- Add Arrows -->
+                    <div class="swiper-buttons">
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
                     </div>
                 </div>
             </div>
-            <div class="tab-content">
-                <div id="newarrival" class="tab-pane active">
-                    <div class="feature-slider slider-nav-style-1">
-                        <div class="feature-slider-wrapper swiper-wrapper">
-                            <!-- Single Item -->
-                            @foreach($new_products as $item)
-                                <div class="feature-slider-item swiper-slide">
-                                    <Product-component :product="{{ $item }}"></Product-component>
-                                </div>
-                            @endforeach
-                        </div>
-                        <!-- Add Arrows -->
-                        <div class="swiper-buttons">
-                            <div class="swiper-button-next"></div>
-                            <div class="swiper-button-prev"></div>
-                        </div>
-                    </div>
-                </div>
-                <div id="bestseller" class="tab-pane fade">
-                    <div class="feature-slider slider-nav-style-1">
-                        <div class="feature-slider-wrapper swiper-wrapper">
-                            <!-- Single Item -->
+            <div id="bestseller" class="tab-pane fade">
+                <div class="feature-slider slider-nav-style-1">
+                    <div class="feature-slider-wrapper swiper-wrapper">
+                        <!-- Single Item -->
+                        @foreach ($featured as $item)
                             <div class="feature-slider-item swiper-slide">
-                                 <Product-component></Product-component>
+                                <product-component :product="{{ $item }}"></product-component>
                             </div>
-                        </div>
-                        <!-- Add Arrows -->
-                        <div class="swiper-buttons">
-                            <div class="swiper-button-next"></div>
-                            <div class="swiper-button-prev"></div>
-                        </div>
+                        @endforeach
+                    </div>
+                    <!-- Add Arrows -->
+                    <div class="swiper-buttons">
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
                     </div>
                 </div>
             </div>
@@ -64,91 +64,52 @@
         </div>
     </div>
 </div>
+
+@foreach ($categories as $categorie)
 <section class="category-tab-area mt-30px mb-40px">
     <div class="container">
         <div class="section-title d-flex">
-            <h2>Smart Electronics</h2>
+            <h2>{{ $categorie->name }}</h2>
             <!-- Nav tabs -->
             <ul class="nav nav-tabs sub-category d-flex justify-content-end flex-grow-1">
-                <li class="nav-item">
-                    <a class="nav-link active" data-toggle="tab" href="#tab-1">Smart Home Appliances</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#tab-2">Smart Remote Controls</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#tab-3">Smart Watches</a>
-                </li>
+                @foreach($categorie->children as $key => $child)
+                    <li class="nav-item">
+                        <a class="nav-link {{ $loop->first ? 'active' : '' }}" data-toggle="tab" href="#tab-{{ $key }}">{{ $child->name }}</a>
+                    </li>
+                @endforeach
             </ul>
         </div>
 
         <!-- Tab panes -->
         <div class="tab-content ">
-            <!-- 1st tab start -->
-            <div id="tab-1" class="tab-pane active">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-lm-55px">
-                        <div class="feature-slider-two slider-nav-style-1 single-product-responsive">
-                            <div class="feature-slider-wrapper swiper-wrapper">
-                                <!-- Single Item -->
-                                <div class="feature-slider-item swiper-slide">
-                                    <Product-component></Product-component>
+            @foreach($categorie->children as $key => $child)
+                <div id="tab-{{ $key }}" class="tab-pane {{ $loop->first ? 'active' : '' }}">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-lm-55px">
+                            <div class="feature-slider-two slider-nav-style-1 single-product-responsive">
+                                <div class="feature-slider-wrapper swiper-wrapper">
+                                    <!-- Single Item -->
+                                    @foreach ($child->products as $product)
+                                        <div class="feature-slider-item swiper-slide">
+                                            <product-component :product="{{ $product }}"></product-component>
+                                        </div>
+                                    @endforeach
+                                </div>
+                                <!-- Add Arrows -->
+                                <div class="swiper-buttons">
+                                    <div class="swiper-button-next"></div>
+                                    <div class="swiper-button-prev"></div>
                                 </div>
                             </div>
-                            <!-- Add Arrows -->
-                            <div class="swiper-buttons">
-                                <div class="swiper-button-next"></div>
-                                <div class="swiper-button-prev"></div>
-                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- 1st tab end -->
-            <!-- 2nd tab start -->
-            <div id="tab-2" class="tab-pane fade">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-lm-55px">
-                        <div class="feature-slider-two slider-nav-style-1">
-                            <div class="feature-slider-wrapper swiper-wrapper">
-                                <!-- Single Item -->
-                                <div class="feature-slider-item swiper-slide">
-                                    <Product-component></Product-component>
-                                </div>                
-                            </div>
-                            <!-- Add Arrows -->
-                            <div class="swiper-buttons">
-                                <div class="swiper-button-next"></div>
-                                <div class="swiper-button-prev"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- 2nd tab end -->
-            <!-- 3rd tab start -->
-            <div id="tab-3" class="tab-pane fade">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-lm-55px">
-                        <div class="feature-slider-two slider-nav-style-1">
-                            <div class="feature-slider-wrapper swiper-wrapper">
-                                <div class="feature-slider-item swiper-slide">
-                                    <Product-component></Product-component>
-                                </div>   
-                            </div>
-                            <!-- Add Arrows -->
-                            <div class="swiper-buttons">
-                                <div class="swiper-button-next"></div>
-                                <div class="swiper-button-prev"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- 3rd tab end -->
+            @endforeach
         </div>
     </div>
 </section>
+@endforeach
+
 <div class="banner-area">
     <div class="container">
         <div class="row">
@@ -170,15 +131,43 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="section-title">
-                    <h2 class="section-heading">Recently Added</h2>
+                    <h2 class="section-heading">Récemment ajoutés</h2>
                 </div>
             </div>
         </div>
         <div class="recent-slider slider-nav-style-1 multi-row-2">
             <div class="recent-slider-wrapper swiper-wrapper">
+                @foreach ($recent_added->chunk(2) as $products)
                 <div class="recent-slider-item swiper-slide">
-                    <Product-component></Product-component>
+                    @foreach ( $products as $item )
+                        <article class="list-product mb-30px">
+                            <div class="img-block">
+                                <a href="single-product.html" class="thumbnail">
+                                    <img class="first-img" src="{{ asset('storage/products/300x300/'.$item->product_image) }}" alt="{{ $item->name }}" />
+                                </a>
+                            </div>
+                            <div class="product-decs">
+                                <a class="inner-link" href="shop-4-column.html"><span>{{ $item->name }}</span></a>
+                                <div class="rating-product">
+                                    <i class="ion-android-star"></i>
+                                    <i class="ion-android-star"></i>
+                                    <i class="ion-android-star"></i>
+                                    <i class="ion-android-star"></i>
+                                    <i class="ion-android-star"></i>
+                                </div>
+                                <div class="pricing-meta">
+                                    <ul>
+                                        <li class="old-price {{ !$item->sale_price ? 'not-cut' : '' }}">{{ $item->price }} CFA</li>
+                                        @if ($item->sale_price)
+                                            <li class="current-price">{{ $item->sale_price }} CFA</li>
+                                        @endif
+                                    </ul>
+                                </div>
+                            </div>
+                        </article>
+                    @endforeach
                 </div>
+                @endforeach
             </div>
             <!-- Add Arrows -->
             <div class="swiper-buttons">
