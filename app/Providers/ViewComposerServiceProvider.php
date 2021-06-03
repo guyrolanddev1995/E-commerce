@@ -45,6 +45,10 @@ class ViewComposerServiceProvider extends ServiceProvider
             $view->with('categories', $categories);
         });
 
+        view::composer('site.partials.header', function ($view) use ($categories) {
+            $view->with('categories', $categories);
+        });
+
         view::composer('site.partials.footer_device_mobil', function($view) {
             $view->with('cartCount', \Cart::getContent()->count());
         });

@@ -4,12 +4,7 @@
             <a href="single-product.html" class="thumbnail">
                 <img
                     class="first-img"
-                    src="assets/images/product-image/6.jpg"
-                    alt=""
-                />
-                <img
-                    class="second-img"
-                    src="assets/images/product-image/7.jpg"
+                    :src="'storage/'+product.product_image"
                     alt=""
                 />
             </a>
@@ -68,7 +63,21 @@
 </template>
 
 <script>
-export default {};
+export default {
+    props:{
+        product: Object
+    },
+
+    data(){
+        return{
+
+        }
+    },
+
+    mounted(){
+        console.log(this.product)
+    }
+};
 </script>
 
 <style></style>

@@ -23,7 +23,7 @@
               <h3 class="box-title">Créer une nouvelle catégorie</h3>
             </div>
            
-            <form role="form" method="post" action="{{ route('admin.categories.store') }}">
+            <form role="form" method="post" action="{{ route('admin.categories.store') }}" enctype="multipart/form-data">
               @csrf
               <div class="box-body">
                 <div class="form-group">
@@ -47,14 +47,18 @@
                   @enderror
                 </div>
 
-                <div class="form-group">
+                <div class="form-group  @error('niveau') has-error @enderror">
                     <label for="niveau">Niveau de la hierachie de la catégorie <span class="m-l-5 text-danger"> *</span></label>
                     <select id=niveau class="form-control custom-select mt-15 @error('niveau') is-invalid @enderror" name="niveau">
                         <option value="1">Niveau 1</option>
                         <option value="2">Niveau 2</option>
                         <option value="3">Niveau 3</option>
                     </select>
-                    @error('niveau') {{ $message }} @enderror
+                    @error('niveau') 
+                      <label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i>
+                          {{ $message }}
+                      </label>
+                    @enderror
                 </div>
 
                 <div class="form-group my-5">
@@ -63,10 +67,14 @@
                             <img src="https://via.placeholder.com/80x80?text=Placeholder+Image" id="category_preview" style="width:250px; height: 200px;">
                         </div>
                         <div class="col-md-8">
-                            <div class="form-group">
+                            <div class="form-group @error('image') has-error @enderror">
                                 <label class="control-label">Selectionner une image</label>
                                 <input class="form-control @error('image') is-invalid @enderror" type="file" id="image" name="image" onchange="loadFile(event,'category_preview')"/>
-                                @error('image') {{ $message }} @enderror
+                                @error('image') 
+                                  <label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i>
+                                      {{ $message }}
+                                  </label>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -95,4 +103,13 @@
         </div>
       </div>
 </section>
+@endsection
+
+@section('scripts')
+<script>
+    loadFile = function(event, id) {
+        var output = document.getElementById(id);
+        output.src = URL.createObjectURL(event.target.files[0]);
+    };
+</script>
 @endsection

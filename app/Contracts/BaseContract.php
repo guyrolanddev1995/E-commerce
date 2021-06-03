@@ -64,8 +64,6 @@ namespace App\Contract;
     */
     public function findOneByOrFail(array $data);
 
-   
-
     /**
      * supprime un element par son ID
      * @param int $id

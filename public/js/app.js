@@ -2005,12 +2005,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    product: Object
+  },
+  data: function data() {
+    return {};
+  },
+  mounted: function mounted() {
+    console.log(this.product);
+  }
+});
 
 /***/ }),
 
@@ -2544,108 +2549,121 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("article", { staticClass: "list-product" }, [
+    _c("div", { staticClass: "img-block" }, [
+      _c(
+        "a",
+        { staticClass: "thumbnail", attrs: { href: "single-product.html" } },
+        [
+          _c("img", {
+            staticClass: "first-img",
+            attrs: { src: "storage/" + _vm.product.product_image, alt: "" }
+          })
+        ]
+      ),
+      _vm._v(" "),
+      _vm._m(0)
+    ]),
+    _vm._v(" "),
+    _vm._m(1),
+    _vm._v(" "),
+    _vm._m(2),
+    _vm._v(" "),
+    _vm._m(3)
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("article", { staticClass: "list-product" }, [
-      _c("div", { staticClass: "img-block" }, [
+    return _c("div", { staticClass: "quick-view" }, [
+      _c(
+        "a",
+        {
+          staticClass: "quick_view",
+          attrs: {
+            href: "#",
+            "data-link-action": "quickview",
+            title: "Quick view",
+            "data-toggle": "modal",
+            "data-target": "#exampleModal"
+          }
+        },
+        [_c("i", { staticClass: "icon-magnifier icons" })]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("ul", { staticClass: "product-flag" }, [
+      _c("li", { staticClass: "new" }, [_vm._v("New")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "product-decs" }, [
+      _c(
+        "a",
+        { staticClass: "inner-link", attrs: { href: "shop-4-column.html" } },
+        [_c("span", [_vm._v("STUDIO DESIGN")])]
+      ),
+      _vm._v(" "),
+      _c("h2", [
         _c(
           "a",
-          { staticClass: "thumbnail", attrs: { href: "single-product.html" } },
-          [
-            _c("img", {
-              staticClass: "first-img",
-              attrs: { src: "assets/images/product-image/6.jpg", alt: "" }
-            }),
-            _vm._v(" "),
-            _c("img", {
-              staticClass: "second-img",
-              attrs: { src: "assets/images/product-image/7.jpg", alt: "" }
-            })
-          ]
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "quick-view" }, [
-          _c(
-            "a",
-            {
-              staticClass: "quick_view",
-              attrs: {
-                href: "#",
-                "data-link-action": "quickview",
-                title: "Quick view",
-                "data-toggle": "modal",
-                "data-target": "#exampleModal"
-              }
-            },
-            [_c("i", { staticClass: "icon-magnifier icons" })]
-          )
-        ])
+          {
+            staticClass: "product-link",
+            attrs: { href: "single-product.html" }
+          },
+          [_vm._v("New Balance Arishi Sport v1")]
+        )
       ]),
       _vm._v(" "),
-      _c("ul", { staticClass: "product-flag" }, [
-        _c("li", { staticClass: "new" }, [_vm._v("New")])
+      _c("div", { staticClass: "rating-product" }, [
+        _c("i", { staticClass: "ion-android-star" }),
+        _vm._v(" "),
+        _c("i", { staticClass: "ion-android-star" }),
+        _vm._v(" "),
+        _c("i", { staticClass: "ion-android-star" }),
+        _vm._v(" "),
+        _c("i", { staticClass: "ion-android-star" }),
+        _vm._v(" "),
+        _c("i", { staticClass: "ion-android-star" })
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "product-decs" }, [
-        _c(
-          "a",
-          { staticClass: "inner-link", attrs: { href: "shop-4-column.html" } },
-          [_c("span", [_vm._v("STUDIO DESIGN")])]
-        ),
-        _vm._v(" "),
-        _c("h2", [
-          _c(
-            "a",
-            {
-              staticClass: "product-link",
-              attrs: { href: "single-product.html" }
-            },
-            [_vm._v("New Balance Arishi Sport v1")]
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "rating-product" }, [
-          _c("i", { staticClass: "ion-android-star" }),
-          _vm._v(" "),
-          _c("i", { staticClass: "ion-android-star" }),
-          _vm._v(" "),
-          _c("i", { staticClass: "ion-android-star" }),
-          _vm._v(" "),
-          _c("i", { staticClass: "ion-android-star" }),
-          _vm._v(" "),
-          _c("i", { staticClass: "ion-android-star" })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "pricing-meta" }, [
-          _c("ul", [
-            _c("li", { staticClass: "old-price not-cut" }, [_vm._v("€18.90")])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "add-to-link" }, [
+      _c("div", { staticClass: "pricing-meta" }, [
         _c("ul", [
-          _c("li", { staticClass: "cart" }, [
-            _c("a", { staticClass: "cart-btn", attrs: { href: "#" } }, [
-              _vm._v("ADD TO CART ")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _c("a", { attrs: { href: "wishlist.html" } }, [
-              _c("i", { staticClass: "icon-heart" })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _c("a", { attrs: { href: "compare.html" } }, [
-              _c("i", { staticClass: "icon-shuffle" })
-            ])
+          _c("li", { staticClass: "old-price not-cut" }, [_vm._v("€18.90")])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "add-to-link" }, [
+      _c("ul", [
+        _c("li", { staticClass: "cart" }, [
+          _c("a", { staticClass: "cart-btn", attrs: { href: "#" } }, [
+            _vm._v("ADD TO CART ")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c("a", { attrs: { href: "wishlist.html" } }, [
+            _c("i", { staticClass: "icon-heart" })
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c("a", { attrs: { href: "compare.html" } }, [
+            _c("i", { staticClass: "icon-shuffle" })
           ])
         ])
       ])

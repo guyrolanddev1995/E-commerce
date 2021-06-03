@@ -32,13 +32,13 @@ class HomeController extends Controller
         $featured = Product::where('featured', 1)
                             ->where('status', 1)
                             ->inRandomOrder()
-                            ->limit(6)
+                            ->limit(16)
                             ->get();
 
         $new_products = Product::where('is_new', 1)
                             ->where('status', 1)
                             ->inRandomOrder()
-                            ->limit(6)
+                            ->limit(16)
                             ->get();
 
         return view('site.pages.home', compact(

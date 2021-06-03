@@ -9,9 +9,8 @@
                 <div class="col-md-12">
                     <div class="section-title-underline">
                         <ul class="nav-tabs nav">
-                            <li><a class="active" data-toggle="tab" href="#newarrival">New Arrival</a></li>
-                            <li><a  data-toggle="tab" href="#bestseller">Bestseller</a></li>
-                            <li><a  data-toggle="tab" href="#featured">Featured</a></li>
+                            <li><a class="active" data-toggle="tab" href="#newarrival">Nouvel Arrivage</a></li>
+                            <li><a  data-toggle="tab" href="#featured">Nos Tendances</a></li>
                         </ul>
                     </div>
                 </div>
@@ -21,9 +20,11 @@
                     <div class="feature-slider slider-nav-style-1">
                         <div class="feature-slider-wrapper swiper-wrapper">
                             <!-- Single Item -->
-                            <div class="feature-slider-item swiper-slide">
-                                 <Product-component></Product-component>
-                            </div>
+                            @foreach($new_products as $item)
+                                <div class="feature-slider-item swiper-slide">
+                                    <Product-component :product="{{ $item }}"></Product-component>
+                                </div>
+                            @endforeach
                         </div>
                         <!-- Add Arrows -->
                         <div class="swiper-buttons">
@@ -33,21 +34,6 @@
                     </div>
                 </div>
                 <div id="bestseller" class="tab-pane fade">
-                    <div class="feature-slider slider-nav-style-1">
-                        <div class="feature-slider-wrapper swiper-wrapper">
-                            <!-- Single Item -->
-                            <div class="feature-slider-item swiper-slide">
-                                 <Product-component></Product-component>
-                            </div>
-                        </div>
-                        <!-- Add Arrows -->
-                        <div class="swiper-buttons">
-                            <div class="swiper-button-next"></div>
-                            <div class="swiper-button-prev"></div>
-                        </div>
-                    </div>
-                </div>
-                <div id="featured" class="tab-pane fade">
                     <div class="feature-slider slider-nav-style-1">
                         <div class="feature-slider-wrapper swiper-wrapper">
                             <!-- Single Item -->

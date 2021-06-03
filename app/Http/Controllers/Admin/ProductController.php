@@ -30,8 +30,13 @@ class ProductController extends BaseController
     public function index()
     {
         $products = $this->productRepository->listProducts();
+        $collection = collect($products);
 
-        return view('admin.products.index', compact('products'));
+        $stock_epuises = $collection->filter(function($value, $key){
+            return $value->quantity <= 	$value->stock;
+        })->all();
+
+        return view('admin.products.index', compact('products', 'stock_epuises'));
     }
 
     public function create()

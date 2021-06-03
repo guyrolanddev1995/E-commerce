@@ -3,11 +3,12 @@
 @section('content')
 <section class="content-header">
     <h1> 
-       Nouvelle categorie
     </h1>
+    {{ $category->name }}
     <ol class="breadcrumb">
       <li><a href="{{ route('admin.home') }}"><i class="fa fa-dashboard"></i> Tableau de bord</a></li>
-      <li class="active">nouvelle catégorie</li>
+      <li class="active">Catégories</li>
+      <li class="active">{{ $category->name }}</li>
     </ol>
 </section>
 
@@ -20,10 +21,10 @@
           <!-- general form elements -->
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Créer une nouvelle catégorie</h3>
+              <h3 class="box-title">Modification de {{ $category->name }}</h3>
             </div>
            
-            <form role="form" method="post" action="{{ route('admin.categories.update', $category) }}">
+            <form role="form" method="post" action="{{ route('admin.categories.update', $category) }}" enctype="multipart/form-data">
               @csrf
               @method('PUT')
               <div class="box-body">
@@ -77,7 +78,7 @@
                         <div class="col-md-8">
                             <div class="form-group">
                                 <label class="control-label">Selectionner une image</label>
-                                <input class="form-control @error('image') is-invalid @enderror" type="file" id="image" name="image" onchange="loadFile(event,'category_preview')"/>
+                                <input class="form-control @error('image') is-invalid @enderror" type="file" id="image" name="image" onchange="loadFile(event,'imagePreview')"/>
                                 @error('image') {{ $message }} @enderror
                             </div>
                         </div>
@@ -113,4 +114,12 @@
         </div>
       </div>
 </section>
+@endsection
+@section('scripts')
+<script>
+    loadFile = function(event, id) {
+        var output = document.getElementById(id);
+        output.src = URL.createObjectURL(event.target.files[0]);
+    };
+</script>
 @endsection

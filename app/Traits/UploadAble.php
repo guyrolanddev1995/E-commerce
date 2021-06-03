@@ -22,13 +22,7 @@ trait UploadAble
      */
     public function uploadOne(UploadedFile $file, $folder = null, $disk = 'public', $filename = null)
     {
-        $name = !is_null($filename) ? $filename : Str::random(25);
-
-        return $file->storeAs(
-            $folder,
-            $name . '.' . $file->getClientOriginalExtension(),
-            $disk
-        );
+        $file = $this->save($file, $folder, $disk, $filename);
     }
 
     /**
@@ -38,5 +32,21 @@ trait UploadAble
     public function deleteOne($path = null, $disk = "public")
     {
         Storage::disk($disk)->delete($path);
+    }
+
+    public function resize($width = 300, $height = 300)
+    {
+       
+    }
+
+    public function save($file, $folder = null, $disk = 'public', $filename = null)
+    {
+        $name = !is_null($filename) ? $filename : Str::random(25);
+
+        return $file->storeAs(
+            $folder,
+            $name . '.' . $file->getClientOriginalExtension(),
+            $disk
+        );
     }
 }
