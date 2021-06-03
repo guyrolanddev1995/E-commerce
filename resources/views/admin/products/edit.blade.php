@@ -170,7 +170,7 @@
                                 <div class="row">
                                     <div class="col-12 col-md-4">
                                         @if ($product->product_image != null)
-                                            <img src="{{ asset('storage/'.$product->product_image) }}" id="imagePreview" style="width: 250px; height: 200px;">
+                                            <img src="{{ asset('storage/products/full/'.$product->product_image) }}" id="imagePreview" style="width: 250px; height: 200px;">
                                         @else
                                             <img src="https://via.placeholder.com/80x80?text=Placeholder+Image" id="imagePreview" style="width: 250px; height: 200px;">
                                         @endif
@@ -235,8 +235,8 @@
                             <div id="aniimated-thumbnials" class="list-unstyled row clearfix mt-5" style="margin-top: 30px">
                                 @foreach($product->images as $image)
                                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12" style="position: relative; margin-bottom: 10px">
-                                        <a href="{{ asset('storage/'.$image->full) }}" data-sub-html="{{ $product->name }}">
-                                            <img class="img-responsive thumbnail" src="{{ asset('storage/'.$image->full) }}" alt="{{ $product->name }}" style="height: 200px; width:100%">
+                                        <a href="{{ asset('storage/products/galleries/full/'.$image->full) }}" data-sub-html="{{ $product->name }}">
+                                            <img class="img-responsive thumbnail" src="{{ asset('storage/products/galleries/full/'.$image->full) }}" alt="{{ $product->name }}" style="height: 200px; width:100%">
                                         </a>
                                         <a style="position: absolute; bottom: 0px; right: 10px" class="card-link float-right text-danger" href="{{ route('admin.products.images.delete', $image->id) }}">
                                             <i class="fa fa-fw fa-lg fa-trash"></i>
@@ -322,11 +322,13 @@ let myDropzone = new Dropzone("#dropzone", {
         url: "{{ route('admin.products.images.upload') }}",
         autoProcessQueue: false,
     });
+
     myDropzone.on("queuecomplete", function (file) {
-        window.location.reload();
+        window.location.reload()
     });
 
-    $('#uploadButton').click(function(){
+    $('#uploadButton').click(function(e){
+        e.preventDefault()
         if (myDropzone.files.length === 0) {
            alert('pas cool')
         } else {

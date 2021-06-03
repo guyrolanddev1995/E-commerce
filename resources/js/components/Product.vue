@@ -4,7 +4,7 @@
             <a href="single-product.html" class="thumbnail">
                 <img
                     class="first-img"
-                    :src="'storage/'+product.product_image"
+                    :src="'storage/products/300x300/'+product.product_image"
                     alt=""
                 />
             </a>
@@ -22,17 +22,12 @@
             </div>
         </div>
         <ul class="product-flag">
-            <li class="new">New</li>
+            <li class="new" v-if="product.is_new == 1">New</li>
         </ul>
         <div class="product-decs">
             <a class="inner-link" href="shop-4-column.html"
-                ><span>STUDIO DESIGN</span></a
+                ><span>{{ product.name}}</span></a
             >
-            <h2>
-                <a href="single-product.html" class="product-link"
-                    >New Balance Arishi Sport v1</a
-                >
-            </h2>
             <div class="rating-product">
                 <i class="ion-android-star"></i>
                 <i class="ion-android-star"></i>
@@ -42,20 +37,14 @@
             </div>
             <div class="pricing-meta">
                 <ul>
-                    <li class="old-price not-cut">€18.90</li>
+                    <li class="old-price not-cut">{{ product.price }} CFA</li>
                 </ul>
             </div>
         </div>
         <div class="add-to-link">
             <ul>
                 <li class="cart">
-                    <a class="cart-btn" href="#">ADD TO CART </a>
-                </li>
-                <li>
-                    <a href="wishlist.html"><i class="icon-heart"></i></a>
-                </li>
-                <li>
-                    <a href="compare.html"><i class="icon-shuffle"></i></a>
+                    <a class="cart-btn" href="#">Ajouter au panier </a>
                 </li>
             </ul>
         </div>

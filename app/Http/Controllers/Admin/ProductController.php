@@ -29,6 +29,7 @@ class ProductController extends BaseController
 
     public function index()
     {
+        
         $products = $this->productRepository->listProducts();
         $collection = collect($products);
 
@@ -49,12 +50,12 @@ class ProductController extends BaseController
         return view('admin.products.create', compact('categories', 'brands'));
     }
 
-    public function store(StoreProductFormRequest $request)
+    public function store(StoreProductFormRequest $request, ProductImageController $productImage)
     {
         
         $params = $request->except('_token');
         
-        $product = $this->productRepository->createProduct($params);
+        $product = $this->productRepository->createProduct($params, $productImage);
 
         if (!$product) {
             return redirect()->back()->with('error','Une erreur est survenue lors de la creation du produit.');

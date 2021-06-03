@@ -180,7 +180,6 @@ return [
         App\Providers\ViewComposerServiceProvider::class,
         Darryldecode\Cart\CartServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
-
     ],
 
     /*
@@ -195,7 +194,6 @@ return [
     */
 
     'aliases' => [
-
         'App' => Illuminate\Support\Facades\App::class,
         'Arr' => Illuminate\Support\Arr::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,
@@ -234,7 +232,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
-        'Image' => Intervention\Image\Façades\Image::class,
+        'Image' => Intervention\Image\Facades\Image::class,
     ],
 
 ];

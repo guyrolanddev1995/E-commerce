@@ -2,18 +2,20 @@
 namespace App\Repositories;
 
 use App\Contracts\ProductContract;
+use App\Http\Controllers\Admin\ProductImageController;
 use App\Product;
 use App\Traits\UploadAble;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
 use InvalidArgumentException;
 
 class ProductRepository extends BaseRepository implements ProductContract
 {
     use UploadAble;
+
+    private $productImage;
 
     /**
      * ProductRepository constructor
@@ -22,7 +24,9 @@ class ProductRepository extends BaseRepository implements ProductContract
     public function __construct(Product $model)
     {
         parent::__construct($model);
+
         $this->model = $model;
+        
     }
 
     /**
@@ -57,15 +61,22 @@ class ProductRepository extends BaseRepository implements ProductContract
      * @param array $params
      * @return Product|mixed
      */
-    public function createProduct(array $params)
+    public function createProduct(array $params, $productImage)
     {
         try {
             $collection = collect($params);
             
             $product_image = null;
 
-            if($collection->has('image') && ($params['image'] instanceof UploadedFile)){
-                $product_image = $this->uploadOne($params['image'], 'products');
+                if($collection->has('image') && ($params['image'] instanceof UploadedFile)){
+                $product_image = $this->uploadOne($params['image'], 'products/full');
+
+                $path = '/products/full/'.$product_image;
+                $destination = 'storage/products/300x300';
+                $destination2 = 'storage/products/800x800';
+
+                $this->resize($path, $destination, $product_image);
+                $this->resize($path, $destination2, $product_image, 800, 800);
             }
             
             $featured = $collection->has('featured') ? 1 : 0;
@@ -97,9 +108,10 @@ class ProductRepository extends BaseRepository implements ProductContract
             if ($collection->has('galerie')) {
                 foreach($params['galerie'] as $img)
                 {
-                   Storage::disk('public')->move('tmp/'.$img, 'products/galleries/'.$img);
+                    $img = $productImage->moveProductGalerieImages($img);
+
                    $product->images()->create([
-                       'full' => 'products/galleries/'.$img
+                       'full' => $img
                    ]);
                 }
             }
@@ -126,10 +138,19 @@ class ProductRepository extends BaseRepository implements ProductContract
         {
             if($product_image != null)
             {
-                $this->deleteOne($product_image);
+                $this->deleteOne('/products/full/'.$product_image);
+                $this->deleteOne('/products/300x300/'.$product_image);
+                $this->deleteOne('/products/800x800/'.$product_image);
             }
 
-            $product_image = $this->uploadOne($params['image'], 'products');
+            $product_image = $this->uploadOne($params['image'], 'products/full');
+            $path = '/products/full/'.$product_image;
+
+            $destination = 'storage/products/300x300';
+            $destination2 = 'storage/products/800x800';
+
+            $this->resize($path, $destination, $product_image);
+            $this->resize($path, $destination2, $product_image, 800, 800);
         }
 
         $featured = $collection->has('featured') ? 1 : 0;

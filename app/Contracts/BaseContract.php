@@ -1,5 +1,5 @@
 <?php
-namespace App\Contract;
+namespace App\Contracts;
 
 /**
  * Interface BaseContract

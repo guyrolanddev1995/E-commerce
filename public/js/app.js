@@ -1994,17 +1994,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     product: Object
@@ -2557,7 +2546,10 @@ var render = function() {
         [
           _c("img", {
             staticClass: "first-img",
-            attrs: { src: "storage/" + _vm.product.product_image, alt: "" }
+            attrs: {
+              src: "storage/products/300x300/" + _vm.product.product_image,
+              alt: ""
+            }
           })
         ]
       ),
@@ -2565,11 +2557,31 @@ var render = function() {
       _vm._m(0)
     ]),
     _vm._v(" "),
-    _vm._m(1),
+    _c("ul", { staticClass: "product-flag" }, [
+      _vm.product.is_new == 1
+        ? _c("li", { staticClass: "new" }, [_vm._v("New")])
+        : _vm._e()
+    ]),
     _vm._v(" "),
-    _vm._m(2),
+    _c("div", { staticClass: "product-decs" }, [
+      _c(
+        "a",
+        { staticClass: "inner-link", attrs: { href: "shop-4-column.html" } },
+        [_c("span", [_vm._v(_vm._s(_vm.product.name))])]
+      ),
+      _vm._v(" "),
+      _vm._m(1),
+      _vm._v(" "),
+      _c("div", { staticClass: "pricing-meta" }, [
+        _c("ul", [
+          _c("li", { staticClass: "old-price not-cut" }, [
+            _vm._v(_vm._s(_vm.product.price) + " CFA")
+          ])
+        ])
+      ])
+    ]),
     _vm._v(" "),
-    _vm._m(3)
+    _vm._m(2)
   ])
 }
 var staticRenderFns = [
@@ -2598,49 +2610,16 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("ul", { staticClass: "product-flag" }, [
-      _c("li", { staticClass: "new" }, [_vm._v("New")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "product-decs" }, [
-      _c(
-        "a",
-        { staticClass: "inner-link", attrs: { href: "shop-4-column.html" } },
-        [_c("span", [_vm._v("STUDIO DESIGN")])]
-      ),
+    return _c("div", { staticClass: "rating-product" }, [
+      _c("i", { staticClass: "ion-android-star" }),
       _vm._v(" "),
-      _c("h2", [
-        _c(
-          "a",
-          {
-            staticClass: "product-link",
-            attrs: { href: "single-product.html" }
-          },
-          [_vm._v("New Balance Arishi Sport v1")]
-        )
-      ]),
+      _c("i", { staticClass: "ion-android-star" }),
       _vm._v(" "),
-      _c("div", { staticClass: "rating-product" }, [
-        _c("i", { staticClass: "ion-android-star" }),
-        _vm._v(" "),
-        _c("i", { staticClass: "ion-android-star" }),
-        _vm._v(" "),
-        _c("i", { staticClass: "ion-android-star" }),
-        _vm._v(" "),
-        _c("i", { staticClass: "ion-android-star" }),
-        _vm._v(" "),
-        _c("i", { staticClass: "ion-android-star" })
-      ]),
+      _c("i", { staticClass: "ion-android-star" }),
       _vm._v(" "),
-      _c("div", { staticClass: "pricing-meta" }, [
-        _c("ul", [
-          _c("li", { staticClass: "old-price not-cut" }, [_vm._v("€18.90")])
-        ])
-      ])
+      _c("i", { staticClass: "ion-android-star" }),
+      _vm._v(" "),
+      _c("i", { staticClass: "ion-android-star" })
     ])
   },
   function() {
@@ -2651,19 +2630,7 @@ var staticRenderFns = [
       _c("ul", [
         _c("li", { staticClass: "cart" }, [
           _c("a", { staticClass: "cart-btn", attrs: { href: "#" } }, [
-            _vm._v("ADD TO CART ")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("a", { attrs: { href: "wishlist.html" } }, [
-            _c("i", { staticClass: "icon-heart" })
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("a", { attrs: { href: "compare.html" } }, [
-            _c("i", { staticClass: "icon-shuffle" })
+            _vm._v("Ajouter au panier ")
           ])
         ])
       ])

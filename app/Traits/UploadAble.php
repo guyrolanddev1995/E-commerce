@@ -5,6 +5,8 @@ namespace App\Traits;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\File;
 
 /**
  * Trait UploadAble
@@ -22,7 +24,16 @@ trait UploadAble
      */
     public function uploadOne(UploadedFile $file, $folder = null, $disk = 'public', $filename = null)
     {
-        $file = $this->save($file, $folder, $disk, $filename);
+        $name = !is_null($filename) ? $filename : Str::random(25);
+        $filename = $name . '.' . $file->getClientOriginalExtension();
+
+        $file->storeAs(
+            $folder,
+            $filename,
+            $disk
+        );
+
+        return $filename;
     }
 
     /**
@@ -34,19 +45,17 @@ trait UploadAble
         Storage::disk($disk)->delete($path);
     }
 
-    public function resize($width = 300, $height = 300)
+    public function resize($path, $destination, $filename, $width = 360, $height = 360)
     {
-       
-    }
+        $file = Storage::disk('public')->get($path);
+        $destination = public_path($destination);
 
-    public function save($file, $folder = null, $disk = 'public', $filename = null)
-    {
-        $name = !is_null($filename) ? $filename : Str::random(25);
+        if(!File::isDirectory($destination)){
+            File::makeDirectory($destination, 0775, true);
+        }
 
-        return $file->storeAs(
-            $folder,
-            $name . '.' . $file->getClientOriginalExtension(),
-            $disk
-        );
+        $image = Image::make($file);
+        $image->resize($width, $height)
+              ->save($destination.'/'.$filename);
     }
 }

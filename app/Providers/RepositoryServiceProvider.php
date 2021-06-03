@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Contracts\BaseContract;
 use App\Contracts\BlogCategoryContract;
 use App\Contracts\AttributeContract;
 use App\Contracts\BrandContract;
@@ -11,6 +12,7 @@ use App\Contracts\PostContract;
 use App\Contracts\ProductContract;
 use App\Contracts\TeamContract;
 use App\Repositories\AttributeRepository;
+use App\Repositories\BaseRepository;
 use App\Repositories\BrandRepository;
 use App\Repositories\CategoryRepository;
 use App\Repositories\OrderRepository;
@@ -31,6 +33,8 @@ class RepositoryServiceProvider extends ServiceProvider
         BlogCategoryContract::class => BlogCategoryRepository::class,
         PostContract::class => PostRepository::class,
         TeamContract::class => TeamRepository::class,
+        BaseContract::class => BaseRepository::class,
+
     ];
     
     /**

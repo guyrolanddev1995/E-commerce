@@ -1,6 +1,8 @@
 <?php
 namespace App\Contracts;
 
+use App\Http\Controllers\Admin\ProductImageController;
+
 interface ProductContract 
 {
     /**
@@ -19,9 +21,10 @@ interface ProductContract
 
     /**
      * @param array $params
+     * @param ProductImageController $productImage
      * @return mixed
      */
-    public function createProduct(array $params);
+    public function createProduct(array $params, $productImage);
 
      /**
      * @param array $params

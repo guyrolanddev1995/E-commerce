@@ -52,7 +52,7 @@
                                 @foreach($products as $key => $product)
                                       <tr>
                                           <td width="4%">
-                                              <img src="{{ asset('storage/'.$product->product_image) }}" alt="" width="50px" height="40px">
+                                              <img src="{{ asset('storage/products/full/'.$product->product_image) }}" alt="" width="100%" height="50px">
                                           </td>
                                           <td width="5%">{{ $product->sku }}</td>
                                           <td width="15%">{{ $product->name }}</td>
