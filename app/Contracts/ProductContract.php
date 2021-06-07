@@ -52,6 +52,25 @@ interface ProductContract
      */
     public function filterProducts(array $data, string $sort = 'id', String $order = "asc", $limit=null);
 
+     /**
+     * recupere tous les produits en vedettes
+     * @param int $limit
+     * @return mixed
+     */
+    public function getFeaturedProducts(int $limit = 16);
 
+     /**
+     * recupere les nouveaux produits
+     * @param int $limit
+     * @return mixed
+     */
+    public function getNewProducts(int $limit = 16);
+
+     /**
+     * recupere les produits ajoutés recemment
+     * @param int $limit
+     * @return mixed
+     */
+    public function getRecentProductsAdded(int $limit = 24);
      
 }

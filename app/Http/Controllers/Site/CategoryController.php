@@ -26,10 +26,15 @@ class CategoryController extends Controller
     public function show($slug)
     {
         $category = $this->categoryRepository->findBySlug($slug);
-        $category->load(['parent' => function($query){
-            $query->where('parent_id', '<>', null)
-                  ->first();
-        }]);
+        
+        if($category->niveau == 1){
+            $category = $category->load('children.children');
+        }
+        elseif($category->niveau == 2){
+            $category->load('parent.children');
+        }elseif($category->niveau == 3){
+            $category->load('parent');
+        }
 
         $products = $category->products()->paginate(25);
 

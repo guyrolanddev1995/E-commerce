@@ -106,4 +106,10 @@ interface CategoryContract
     public function getQueryBuilder($slug);
 
     public function getSubCategories();
+
+     /**
+     * recupere les catégories et les affiches sur la boutique
+     * @return mixed
+     */
+    public function displayCategoriesWithProductsOnHomePage();
 }

@@ -19,7 +19,7 @@ require 'admin.php';
 Route::get('/', 'Site\HomeController@index')->name('site.home');
 Route::get('/home', 'Site\HomeController@index')->name('site.home');
 Route::get('/brands/{brand}/products', 'Site\BrandController@show')->name('site.brands.show');
-Route::get('/category/{category}/products', 'Site\CategoryController@show')->name('site.category.show');
+Route::get('/category/{category}', 'Site\CategoryController@show')->name('site.category.show');
 Route::get('/products/{slug}', 'Site\ProductDetailController@show')->name('product.details');
 Route::post('/product/add/cart', 'Site\ProductController@addToCart')->name('product.add.cart');
 Route::get('/cart', 'Site\CartController@getCart')->name('checkout.cart');

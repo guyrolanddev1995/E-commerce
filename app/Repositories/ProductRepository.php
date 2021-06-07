@@ -5,6 +5,7 @@ use App\Contracts\ProductContract;
 use App\Http\Controllers\Admin\ProductImageController;
 use App\Product;
 use App\Traits\UploadAble;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
@@ -206,5 +207,46 @@ class ProductRepository extends BaseRepository implements ProductContract
                       ->orderBy($sort, $order)
                       ->limit($limit)
                       ->get();
+    }
+
+    /**
+     * recupere tous les produits en vedettes
+     * @param int $limit
+     * @return mixed
+     */
+    public function getFeaturedProducts(int $limit= 16)
+    {
+        return Product::where('featured', 1)
+                            ->where('status', 1)
+                            ->inRandomOrder()
+                            ->limit($limit)
+                            ->get();
+    }
+
+     /**
+     * recupere les nouveaux produits
+     * @param int $limit
+     * @return mixed
+     */
+    public function getNewProducts(int $limit = 16)
+    {
+        return Product::where('is_new', 1)
+                        ->where('status', 1)
+                        ->inRandomOrder()
+                        ->limit($limit)
+                        ->get();
+    }
+
+     /**
+     * recupere les produits ajoutés recemment
+     * @param int $limit
+     * @return mixed
+     */
+    public function getRecentProductsAdded(int $limit = 24)
+    {
+        return  Product::whereDate('created_at', '<=' ,Carbon::now()->addDays(7)->format('Y-m-d'))
+                    ->orderBy('created_at', 'desc')
+                    ->limit($limit)
+                    ->get();
     }
 }

@@ -321,4 +321,24 @@ class CategoryRepository extends BaseRepository implements CategoryContract
         return $categories;
     }
 
+     /**
+     * recupere les catégories et les affiches sur la boutique
+     * @return mixed
+     */
+    public function displayCategoriesWithProductsOnHomePage()
+    {
+        return  Category::where('niveau', '2')
+                        ->whereHas('children')
+                        ->where('featured', 1)
+                        ->with(['children' => function($query){
+                            return $query->where('niveau', '3')
+                                ->where('featured', 1)
+                                ->whereHas('products')
+                                ->with('products')
+                                ->get();
+                        }])
+                        ->orderBy('name', 'asc')
+                        ->get();
+    }
+
 }

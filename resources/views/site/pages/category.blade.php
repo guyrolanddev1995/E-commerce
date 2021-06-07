@@ -1,106 +1,114 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="main-content main-content-product no-sidebar">
+@include('site.partials.header')
+<div class="breadcrumb-area">
     <div class="container">
         <div class="row">
-            <div class="col-lg-12">
-                <div class="breadcrumb-trail breadcrumbs">
-                    <ul class="trail-items breadcrumb">
-                        <li class="trail-item trail-begin">
-                            <a href="{{ route('site.home') }}">Accueil</a>
-                        </li>
-                        @if($category->parent)
-                            <li class="trail-item trail-begin">
-                                <a href="{{ route('site.category.show', $category->parent->slug) }}">{{ $category->parent->name }}</a>
-                            </li>
+            <div class="col-md-12">
+                <div class="breadcrumb-content">
+                    <ul class="nav">
+                        @if($category->niveau == 1)
+                            <li><a href="{{ route('site.home') }}">Accuel</a></li>
+                            <li>{{ $category->name }}</li>
                         @endif
-                        <li class="trail-item trail-end active">
-                            {{ $category->name }}
-                        </li>
+
+                        @if($category->niveau == 2)
+                            <li><a href="{{ route('site.home') }}">Accuel</a></li>
+                            <li><a href="{{ route('site.category.show', $category->parent->slug) }}">{{ $category->parent->name }}</a></li>
+                            <li>{{ $category->name }}</li>
+                        @endif
+
+                        @if($category->niveau == 3)
+                            <li><a href="{{ route('site.home') }}">Accuel</a></li>
+                            <li><a href="{{ route('site.category.show', $category->parent->parent->slug) }}">{{ $category->parent->parent->name }}</a></li>
+                            <li><a href="{{ route('site.category.show', $category->parent->slug) }}">{{ $category->parent->name }}</a></li>
+                            <li>{{ $category->name }}</li>
+                        @endif
                     </ul>
                 </div>
             </div>
         </div>
+    </div>
+</div>
+<div class="shop-category-area mt-30px">
+    <div class="container">
         <div class="row">
-            <div class="content-area shop-grid-content full-width col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="site-main">
-                    <h3 class="custom_blog_title">
-                        {{ $category->name }}
-                    </h3>
-                    
-                    <ul class="row list-products auto-clear equal-container product-grid">
-                        @foreach($products as $product)
-                        <li class="product-item  col-lg-3 col-md-4 col-sm-6 col-xs-6 col-ts-12 style-1">
-                            <div class="product-inner equal-element">
-                                <div class="product-top">
-                                    <div class="flash">
-                                        <span class="onnew">
-                                            <span class="text">
-                                                new
-                                            </span>
-                                        </span>
-                                    </div>
+            <div class="col-lg-9 order-lg-last col-md-12 order-md-first">
+                <!-- Shop Top Area Start -->
+                <div class="shop-top-bar d-flex">
+                    <!-- Left Side start -->
+                    <div class="shop-tab nav d-flex">
+                        <a class="active" href="#shop-1" data-toggle="tab">
+                            <i class="fa fa-th"></i>
+                        </a>
+                        <a href="#shop-2" data-toggle="tab">
+                            <i class="fa fa-list"></i>
+                        </a>
+                        <p>{{ count($products) }} Produits trouvés</p>
+                    </div>
+                    <!-- Left Side End -->
+                    <!-- Right Side Start -->
+                    <div class="select-shoing-wrap d-flex">
+                        <div class="shot-product">
+                            <p>Trier par:</p>
+                        </div>
+                        <div class="shop-select">
+                            <select>
+                                <option value="">Sort by newness</option>
+                                <option value="">A to Z</option>
+                                <option value=""> Z to A</option>
+                                <option value="">In stock</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- Right Side End -->
+                </div>
+                <!-- Shop Top Area End -->
+
+                <!-- Shop Bottom Area Start -->
+                <div class="shop-bottom-area mt-35">
+                    <!-- Shop Tab Content Start -->
+                    <div class="tab-content jump">
+                        <!-- Tab One Start -->
+                        <div id="shop-1" class="tab-pane active">
+                            <div class="row responsive-md-class responsive-xl-class responsive-lg-class">
+                                @foreach ($products as $product)
+                                <div class="col-xl-3 col-md-4 col-sm-6 ">
+                                    <product-component :product="{{ $product }}"></product-component>
                                 </div>
-                                <div class="product-thumb">
-                                    <div class="thumb-inner">
-                                        <a href="{{ route('product.details', $product->slug) }}">
-                                            <img src="{{ asset('storage/'.$product->product_image) }}" alt="img">
-                                        </a>
-                                        <div class="thumb-group">
-                                            <div class="yith-wcwl-add-to-wishlist">
-                                                <div class="yith-wcwl-add-button">
-                                                    <a href="#">Add to Wishlist</a>
-                                                </div>
-                                            </div>
-                                            <a href="#" class="button quick-wiew-button">Quick View</a>
-                                            <div class="loop-form-add-to-cart">
-                                                <button class="single_add_to_cart_button button">Add to cart
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-info">
-                                    <h5 class="product-name product_title">
-                                        <a href="{{ route('product.details', $product->slug) }}">{{ $product->name }}</a>
-                                    </h5>
-                                    <div class="group-info">
-                                        <div class="stars-rating">
-                                            <div class="star-rating">
-                                                <span class="star-3"></span>
-                                            </div>
-                                            <div class="count-star">
-                                                (3)
-                                            </div>
-                                        </div>
-                                        <div class="price">
-                                            <ins>
-                                                {{ $product->price }} CFA
-                                            </ins>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        @endforeach
-                       
-                    </ul>
-                    @if($products->hasPages())
-                        <div class="pagination clearfix style2">
-                            <div class="nav-link">
-                                <a href="{{ $products->previousPageUrl() }}" class="page-numbers"><i class="icon fa fa-angle-left" aria-hidden="true"></i></a>
-                                @for ($i = 1; $i <= $products->lastPage(); $i++)
-                                    <a href="{{ $products->url($i) }}" class="page-numbers {{ $products->currentPage() == $i ? 'current' : '' }}">{{ $i }}</a>
-                                @endfor
-                                <a href="{{ $products->nextPageUrl() }}" class="page-numbers"><i class="icon fa fa-angle-right" aria-hidden="true"></i></a>
+                                @endforeach
                             </div>
                         </div>
-                    @endif
-                    
+                        <!-- Tab One End -->
+                        <!-- Tab Two Start -->
+                        <div id="shop-2" class="tab-pane">
+                            @foreach ($products as $product)
+                                <product-grid :product="{{ $product }}"></product-grid>
+                            @endforeach
+                        </div>
+                        <!-- Tab Two End -->
+                    </div>
+                    <!-- Shop Tab Content End -->
+                    <!--  Pagination Area Start -->
+                    <div class="pro-pagination-style text-center mb-60px mt-30px">
+                        <ul>
+                            <li>
+                                <a class="prev" href="#"><i class="ion-ios-arrow-left"></i></a>
+                            </li>
+                            <li><a class="active" href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li>
+                                <a class="next" href="#"><i class="ion-ios-arrow-right"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--  Pagination Area End -->
                 </div>
+                <!-- Shop Bottom Area End -->
             </div>
-            
+            <!-- Sidebar Area Start -->
+          @include('site.partials.product_sidebar', ['category' => $category])
         </div>
     </div>
 </div>

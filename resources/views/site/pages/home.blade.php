@@ -1,53 +1,28 @@
 @extends('layouts.app')
 
 @section('content')
-@include('site.partials.banner')
-<div class="feature-tab-area mt-60px">
+@include('site.partials.home.header')
+<div class="feature-area mt-60px mb-30px">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="section-title-underline">
-                    <ul class="nav-tabs nav">
-                        <li><a class="active" data-toggle="tab" href="#newarrival">Nouvels Arrivages</a></li>
-                        <li><a  data-toggle="tab" href="#bestseller">Nos Tendances</a></li>
-                    </ul>
+                <div class="section-title">
+                    <h2 class="section-heading">Nos Tendances</h2>
                 </div>
             </div>
         </div>
-        <div class="tab-content">
-            <div id="newarrival" class="tab-pane active">
-                <div class="feature-slider slider-nav-style-1">
-                    <div class="feature-slider-wrapper swiper-wrapper">
-                        <!-- Single Item -->
-                        @foreach ($new_products as $item)
-                        <div class="feature-slider-item swiper-slide">
-                            <product-component :product="{{ $item }}"></product-component>
-                        </div>
-                        @endforeach
+        <div class="feature-slider-two slider-nav-style-1 single-product-responsive">
+            <div class="feature-slider-wrapper swiper-wrapper">
+                @foreach ($featured as $item)
+                    <div class="feature-slider-item swiper-slide">
+                        <product-component :product="{{ $item }}"></product-component>
                     </div>
-                    <!-- Add Arrows -->
-                    <div class="swiper-buttons">
-                        <div class="swiper-button-next"></div>
-                        <div class="swiper-button-prev"></div>
-                    </div>
-                </div>
+                @endforeach
             </div>
-            <div id="bestseller" class="tab-pane fade">
-                <div class="feature-slider slider-nav-style-1">
-                    <div class="feature-slider-wrapper swiper-wrapper">
-                        <!-- Single Item -->
-                        @foreach ($featured as $item)
-                            <div class="feature-slider-item swiper-slide">
-                                <product-component :product="{{ $item }}"></product-component>
-                            </div>
-                        @endforeach
-                    </div>
-                    <!-- Add Arrows -->
-                    <div class="swiper-buttons">
-                        <div class="swiper-button-next"></div>
-                        <div class="swiper-button-prev"></div>
-                    </div>
-                </div>
+            <!-- Add Arrows -->
+            <div class="swiper-buttons">
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
             </div>
         </div>
     </div>
@@ -65,7 +40,33 @@
     </div>
 </div>
 
-@foreach ($categories as $categorie)
+<div class="feature-area mt-60px mb-30px">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-title">
+                    <h2 class="section-heading">Nouvels Arrivages</h2>
+                </div>
+            </div>
+        </div>
+        <div class="feature-slider-two slider-nav-style-1 single-product-responsive">
+            <div class="feature-slider-wrapper swiper-wrapper">
+                @foreach ($new_products as $item)
+                    <div class="feature-slider-item swiper-slide">
+                        <product-component :product="{{ $item }}"></product-component>
+                    </div>
+                @endforeach
+            </div>
+            <!-- Add Arrows -->
+            <div class="swiper-buttons">
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@foreach ($categories as $key1 => $categorie)
 <section class="category-tab-area mt-30px mb-40px">
     <div class="container">
         <div class="section-title d-flex">
@@ -74,7 +75,7 @@
             <ul class="nav nav-tabs sub-category d-flex justify-content-end flex-grow-1">
                 @foreach($categorie->children as $key => $child)
                     <li class="nav-item">
-                        <a class="nav-link {{ $loop->first ? 'active' : '' }}" data-toggle="tab" href="#tab-{{ $key }}">{{ $child->name }}</a>
+                        <a class="nav-link {{ $loop->first ? 'active' : '' }}" data-toggle="tab" href="#tab-{{ $key1 }}-{{ $key }}">{{ $child->name }}</a>
                     </li>
                 @endforeach
             </ul>
@@ -83,7 +84,7 @@
         <!-- Tab panes -->
         <div class="tab-content ">
             @foreach($categorie->children as $key => $child)
-                <div id="tab-{{ $key }}" class="tab-pane {{ $loop->first ? 'active' : '' }}">
+                <div id="tab-{{ $key1 }}-{{ $key }}" class="tab-pane {{ $loop->first ? 'active' : '' }}">
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-lm-55px">
                             <div class="feature-slider-two slider-nav-style-1 single-product-responsive">
@@ -126,6 +127,7 @@
         </div>
     </div>
 </div>
+
 <div class="recent-add-area mb-30px mt-30px">
     <div class="container">
         <div class="row">

@@ -25,36 +25,10 @@ class HomeController extends Controller
 
     public function index()
     {
-    
-        $featured = Product::where('featured', 1)
-                            ->where('status', 1)
-                            ->inRandomOrder()
-                            ->limit(16)
-                            ->get();
-
-        $new_products = Product::where('is_new', 1)
-                            ->where('status', 1)
-                            ->inRandomOrder()
-                            ->limit(16)
-                            ->get();
-
-        $categories = Category::where('niveau', '2')
-                              ->whereHas('children')
-                              ->where('featured', 1)
-                              ->with(['children' => function($query){
-                                  return $query->where('niveau', '3')
-                                        ->where('featured', 1)
-                                        ->whereHas('products')
-                                        ->with('products')
-                                        ->get();
-                              }])
-                              ->orderBy('name', 'asc')
-                              ->get();
-
-        $recent_added = Product::whereDate('created_at', '<=' ,Carbon::now()->addDays(7)->format('Y-m-d'))
-                                ->orderBy('created_at', 'desc')
-                                ->limit(24)
-                                ->get();
+        $featured = $this->productRepository->getFeaturedProducts();
+        $new_products =  $this->productRepository->getNewProducts();
+        $recent_added = $this->productRepository->getRecentProductsAdded();
+        $categories = $this->categoryRepository->displayCategoriesWithProductsOnHomePage();
 
         return view('site.pages.home', compact(
             'recent_added', 'featured', 'new_products', 'categories'

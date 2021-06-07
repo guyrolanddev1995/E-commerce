@@ -14,14 +14,13 @@
     <link rel="stylesheet" href="{{ asset('assets/css/vendor/vendor.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/plugins/plugins.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/style.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
 </head>
 <body class="home">
    <main id="app">
-        @include('site.partials.header')
+       
         @include('site.partials.header_device_mobil')
-        <div>
-            @yield('content')
-        </div>
+        @yield('content')
         @include('site.partials.footer')
    </main>
 

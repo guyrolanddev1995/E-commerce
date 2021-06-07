@@ -41,7 +41,7 @@ class ViewComposerServiceProvider extends ServiceProvider
             $view->with('categories', $categories);
         });
 
-        view::composer('site.includes.navbar', function ($view) use ($categories) {
+        view::composer('site.partials.home.header', function ($view) use ($categories) {
             $view->with('categories', $categories);
         });
 
