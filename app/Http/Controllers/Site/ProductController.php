@@ -35,6 +35,7 @@ class ProductController extends Controller
     public function addToCart(Request $request)
     {
        $product = $this->productRepository->findProductById($request->input('productId'));
+
        $options = $request->except('_token', 'productId', 'price', 'qty');
 
        $item =  Cart::get($product->id);
@@ -48,6 +49,7 @@ class ProductController extends Controller
            Cart::add($product->id, $product->name, $request->input('price'), $request->input('qty'), $options, [], Product::class);
        }
      
-       return redirect()->back()->with('success', 'Produit ajouté au panier avec succèss.');
+       return redirect()->route('product.details', $product->slug)
+                        ->with('success', 'Produit ajouté au panier avec succèss.');
     }
 }

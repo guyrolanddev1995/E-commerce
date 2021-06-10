@@ -42,18 +42,10 @@
         <li>
             <a href="{{ route('admin.brands.index') }}"><i class="fa fa-truck" aria-hidden="true"></i><span>Marques</span></a>
         </li>
-        {{-- <li>
-            <a href="{{ route('admin.transporteurs.index') }}"><i class="fa fa-truck" aria-hidden="true"></i><span>Transporteurs</span></a>
-        </li>
+
         <li>
-            <a href="{{ route('admin.devise.index') }}"><i class="fa fa-balance-scale" aria-hidden="true"></i><span>Dévise</span></a>
+            <a href="{{ route('admin.slide.create') }}"><i class="fa fa-picture-o" aria-hidden="true"></i><span>Média</span></a>
         </li>
-        <li>
-            <a href="{{ route('admin.media') }}"><i class="fa fa-picture-o" aria-hidden="true"></i><span>Média</span></a>
-        </li>
-        <li>
-            <a href="{{ route('admin.settings') }}"><i class="fa fa-cogs" aria-hidden="true"></i><span>Paramètre</span></a>
-        </li> --}}
       </ul>
       <!-- /.sidebar-menu -->
     </section>

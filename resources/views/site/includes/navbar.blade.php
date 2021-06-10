@@ -123,9 +123,9 @@
                     <!--Cart info Start -->
                     <div class="header-tools d-flex">
                         <div class="cart-info d-flex align-self-center">
-                            <a href="compare.html" class="shuffle" data-number="3"><i class="icon-shuffle"></i></a>
-                            <a href="#offcanvas-wishlist" class="heart offcanvas-toggle" data-number="3"><i class="icon-heart"></i></a>
-                            <a href="#offcanvas-cart" class="bag offcanvas-toggle" data-number="3"><i class="icon-bag"></i><span>$20.00</span></a>
+                            {{-- <a href="compare.html" class="shuffle" data-number="3"><i class="icon-shuffle"></i></a>
+                            <a href="#offcanvas-wishlist" class="heart offcanvas-toggle" data-number="3"><i class="icon-heart"></i></a> --}}
+                            <a href="#offcanvas-cart" class="bag offcanvas-toggle" data-number="{{ $cartCount }}"><i class="icon-bag"></i><span>{{ $total }} CFA</span></a>
                         </div>
                     </div>
                 </div>

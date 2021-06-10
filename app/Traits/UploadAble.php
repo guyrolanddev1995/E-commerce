@@ -45,9 +45,14 @@ trait UploadAble
         Storage::disk($disk)->delete($path);
     }
 
-    public function resize($path, $destination, $filename, $width = 360, $height = 360)
+    public function resize($path = null, $files = null, $destination, $filename, $width = 360, $height = 360)
     {
-        $file = Storage::disk('public')->get($path);
+        if($path){
+            $file = Storage::disk('public')->get($path);
+        } else {
+            $file = $files;
+        }
+
         $destination = public_path($destination);
 
         if(!File::isDirectory($destination)){

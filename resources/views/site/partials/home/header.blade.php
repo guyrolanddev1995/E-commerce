@@ -38,7 +38,7 @@
                     <!-- header menu vertical -->
                 </div>
     
-                @include('site.includes.banner')
+                @include('site.includes.banner', ['carousels', $carousels])
             </div>
             <!-- row -->
         </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Carousel;
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Slide;
@@ -15,11 +16,10 @@ class SlideController extends BaseController
 
     public function create()
     {
-        $slides = Slide::orderBy('created_at', 'desc')->get();
+        $images = Carousel::orderBy('created_at', 'desc')->get();
 
-        $this->setPageTitle('Slides', '');
 
-        return view('admin.slides.create', compact('slides'));
+        return view('admin.slides.create', compact('images'));
     }
 
     public function store(Request $request)
@@ -29,13 +29,19 @@ class SlideController extends BaseController
         ]);
 
         if($request->has('image') && $request->image instanceof UploadedFile){
-            $slide = $this->uploadOne($request->file('image'), 'slides');
-            Slide::create([
-                'type' => $request->page,
-                'images' => $slide
+            $file = $request->image;
+
+            $filename = \Str::random(25). '.' . $file->getClientOriginalExtension();
+
+            $destination = 'storage/carousels';
+
+            $this->resize(null, $file->getRealPath(), $destination, $filename, 765, 455);
+
+            Carousel::create([
+                'url' => $filename
             ]); 
 
-            return $this->responseRedirectBack('Image téléchargée avec success.', 'success', false, false);
+            return redirect()->back()->with('success', 'Carousel ajouté avec succès');
         } 
 
         return $this->responseRedirectBack('Impossbile de télécharger l\'image.', 'error', true, true);
@@ -43,11 +49,12 @@ class SlideController extends BaseController
 
     public function delete($slide)
     {
-        $slide = Slide::findOrFail($slide);
-        $this->deleteOne($slide->images);
+        $slide = Carousel::findOrFail($slide);
+       
+        $this->deleteOne('carousels/'.$slide->url);
 
         $slide->delete();
 
-        return $this->responseRedirectBack('Image supprimé avec success.', 'success', false, false);
+        return redirect()->back()->with('error', 'Image supprimé avec success.');
     }
 }

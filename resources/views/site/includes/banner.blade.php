@@ -3,32 +3,9 @@
         <div class="hero-slider swiper-container">
             <div class="swiper-wrapper">
                 <!-- Single Slider  -->
-                <div class="swiper-slide bg-img d-flex" style="background-image: url(assets/images/slider-image/sample-3.jpg);">
-                    <div class="container align-self-center">
-                        <div class="slider-content-1 slider-animated-1 text-left pl-60px">
-                            <span class="animated color-white">GALAXY WATCH</span>
-                            <h1 class="animated color-white">
-                                Pre-Order <br />
-                                <strong>Exclusive</strong>
-                            </h1>
-                            <a href="shop-4-column.html" class="shop-btn animated">SHOP NOW</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Single Slider  -->
-                <div class="swiper-slide bg-img d-flex" style="background-image: url(assets/images/slider-image/sample-4.jpg);">
-                    <div class="container align-self-center">
-                        <div class="slider-content-1 slider-animated-1 text-left pl-60px">
-                            <span class="animated color-white">BT HEADPHONE</span>
-                            <h1 class="animated color-white">
-                                Headset <br />
-                                <strong>Hyper X</strong>
-                            </h1>
-                            <a href="shop-4-column.html" class="shop-btn animated">SHOP NOW</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Single Slider  -->
+                @foreach ($carousels as $carousel)
+                    <div class="swiper-slide bg-img d-flex" style="background-image: url({{ asset('storage/carousels/'.$carousel->url) }});"></div>
+                @endforeach
             </div>
             <!-- Add Pagination -->
             <div class="swiper-pagination swiper-pagination-white"></div>

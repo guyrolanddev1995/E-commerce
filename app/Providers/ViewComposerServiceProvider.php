@@ -34,10 +34,9 @@ class ViewComposerServiceProvider extends ServiceProvider
                             ->get();
       
     
-        view::composer('site.partials.header', function ($view) use ($categories) {
+        view::composer('site.includes.navbar', function ($view) use ($categories) {
             $view->with('cartCount', \Cart::getContent()->count());
-            $view->with('carts', \Cart::getContent());
-            $view->with('total_price', \Cart::getSubTotal());
+            $view->with('total', \Cart::getSubTotal());
             $view->with('categories', $categories);
         });
 

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-@include('site.partials.home.header')
+@include('site.partials.home.header', ['carousels' => $carousels])
 <div class="feature-area mt-60px mb-30px">
     <div class="container">
         <div class="row">

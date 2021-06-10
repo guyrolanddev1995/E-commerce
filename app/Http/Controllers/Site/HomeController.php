@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\BlogPost;
+use App\Carousel;
 use App\Category;
 use App\Contracts\CategoryContract;
 use App\Contracts\ProductContract;
@@ -30,8 +31,11 @@ class HomeController extends Controller
         $recent_added = $this->productRepository->getRecentProductsAdded();
         $categories = $this->categoryRepository->displayCategoriesWithProductsOnHomePage();
 
+
+        $carousels = Carousel::orderBy('created_at', 'desc')->get();
+
         return view('site.pages.home', compact(
-            'recent_added', 'featured', 'new_products', 'categories'
+            'recent_added', 'featured', 'new_products', 'categories', 'carousels'
         ));
     }
 }

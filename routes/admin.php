@@ -102,44 +102,18 @@ Route::group(['prefix' => 'admin'], function () {
         //  Route::get('/contact/{contact}/delete', 'Admin\ContactController@delete')->name('admin.contact.delete');
 
 
-        //  Route::group(['prefix' => 'blog'], function(){
-        //         Route::get('categories/', 'Admin\Blog\CategorieController@index')->name('admin.blog.categorie.index');
-        //         Route::get('categories/create', 'Admin\Blog\CategorieController@create')->name('admin.blog.categorie.creare');
-        //         Route::post('categories/store', 'Admin\Blog\CategorieController@store')->name('admin.blog.categorie.store');
-        //         Route::get('categories/{categorie}/edit', 'Admin\Blog\CategorieController@edit')->name('admin.blog.categorie.edit');
-        //         Route::put('categories/{categorie}/update', 'Admin\Blog\CategorieController@update')->name('admin.blog.categorie.update');
-        //         Route::get('categories/{categorie}/delete', 'Admin\Blog\CategorieController@delete')->name('admin.blog.categorie.delete');
-            
-        //         Route::get('/', 'Admin\Blog\PostController@index')->name('admin.blog.post.index');
-        //         Route::get('post/{post}/show', 'Admin\Blog\PostController@show')->name('admin.blog.post.show');
-        //         Route::get('post/create', 'Admin\Blog\PostController@create')->name('admin.blog.post.create');
-        //         Route::post('post/create', 'Admin\Blog\PostController@store')->name('admin.blog.post.store');
-        //         Route::get('post/{post}/edit', 'Admin\Blog\PostController@edit')->name('admin.blog.post.edit');
-        //         Route::put('post/{post}/update', 'Admin\Blog\PostController@update')->name('admin.blog.post.update');
-        //         Route::get('post/{post}/delete', 'Admin\Blog\PostController@delete')->name('admin.blog.post.delete');
-        //  });
-
         //  Route::group(['prefix' => 'media'], function() {
         //         Route::group(['prefix' => 'galeries'], function () {
         //             Route::get('create', 'Admin\GalerieController@create')->name('admin.galerie.create');
         //             Route::get('index', 'Admin\GalerieController@index')->name('admin.galerie.index');
         //         });
-
-        //        Route::group(['prefix' => 'slides'], function () {
-        //            Route::get('create', 'Admin\SlideController@create')->name('admin.slide.create');
-        //            Route::post('store', 'Admin\SlideController@store')->name('admin.slide.store');
-        //            Route::get('/{slide}/delete', 'Admin\SlideController@delete')->name('admin.slide.delete');
-        //        });
         //  });
 
-        //  Route::group(['prefix' => 'team'], function(){
-        //     Route::get('/', 'Admin\TeamController@index')->name('admin.team.index');
-        //     Route::get('/create', 'Admin\TeamController@create')->name('admin.team.create');
-        //     Route::post('/store', 'Admin\TeamController@store')->name('admin.team.store');
-        //     Route::get('/{team}/edit', 'Admin\TeamController@edit')->name('admin.team.edit');
-        //     Route::put('/{team}/update', 'Admin\TeamController@update')->name('admin.team.update');
-        //     Route::get('/{team}/delete', 'Admin\TeamController@delete')->name('admin.team.delete');
-        // });
+         Route::group(['prefix' => 'slides'], function () {
+            Route::get('create', 'Admin\SlideController@create')->name('admin.slide.create');
+            Route::post('store', 'Admin\SlideController@store')->name('admin.slide.store');
+            Route::get('/{slide}/delete', 'Admin\SlideController@delete')->name('admin.slide.delete');
+        });
 
         // Route::group(['prefix' => 'users-account'], function(){
         //     Route::get('/', 'Admin\AccountController@index')->name('admin.account.index');
