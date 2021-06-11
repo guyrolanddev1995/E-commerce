@@ -20,6 +20,7 @@
    <main id="app">
        
         @include('site.partials.header_device_mobil')
+        @include('site.partials.cart_modal')
         @yield('content')
         @include('site.partials.footer')
    </main>

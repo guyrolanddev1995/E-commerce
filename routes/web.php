@@ -22,9 +22,13 @@ Route::get('/brands/{brand}/products', 'Site\BrandController@show')->name('site.
 Route::get('/category/{category}', 'Site\CategoryController@show')->name('site.category.show');
 Route::get('/products/{slug}', 'Site\ProductDetailController@show')->name('product.details');
 Route::post('/product/add/cart', 'Site\ProductController@addToCart')->name('product.add.cart');
-Route::get('/cart', 'Site\CartController@getCart')->name('checkout.cart');
+
+Route::get('/cart', 'Site\CartController@index')->name('checkout.cart');
 Route::patch('/cart/{productId}/update', 'Site\CartController@updateCart')->name('checkout.cart.update');
-Route::get('/cart/item/{id}/remove', 'Site\CartController@removeItem')->name('checkout.cart.remove');
+Route::delete('/cart/item/{id}/remove', 'Site\CartController@removeItem')->name('checkout.cart.remove');
+
+Route::get('/cart/all', 'Site\CartController@getCart');
+Route::get('/cart/get-cart-count', 'Site\CartController@getCartCount');
 
 Route::group(['middleware' => ['auth']], function() {
    Route::get('checkout', 'Site\CheckoutController@create')->name('check-out');

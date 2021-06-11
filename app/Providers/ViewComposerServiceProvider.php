@@ -40,6 +40,11 @@ class ViewComposerServiceProvider extends ServiceProvider
             $view->with('categories', $categories);
         });
 
+        view::composer('site.partials.cart_modal', function ($view){
+            $view->with('cart', \Cart::getContent());
+            $view->with('total', \Cart::getSubTotal());
+        });
+
         view::composer('site.partials.home.header', function ($view) use ($categories) {
             $view->with('categories', $categories);
         });
@@ -48,8 +53,12 @@ class ViewComposerServiceProvider extends ServiceProvider
             $view->with('categories', $categories);
         });
 
-        view::composer('site.partials.footer_device_mobil', function($view) {
-            $view->with('cartCount', \Cart::getContent()->count());
+        view::composer('site.includes.mobil_navbar', function($view) use ($categories) {
+            $view->with('categories', $categories);
+        });
+
+        view::composer('site.partials.header_device_mobil', function($view) use ($categories) {
+            $view->with('categories', $categories);
         });
     }
 }

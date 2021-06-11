@@ -2,6 +2,7 @@
 
 @section('content')
 @include('site.partials.home.header', ['carousels' => $carousels])
+@include('site.includes.mobil_banner', ['carousels' => $carousels])
 <div class="feature-area mt-60px mb-30px">
     <div class="container">
         <div class="row">

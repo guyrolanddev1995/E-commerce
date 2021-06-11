@@ -4,7 +4,9 @@
             <div class="swiper-wrapper">
                 <!-- Single Slider  -->
                 @foreach ($carousels as $carousel)
-                    <div class="swiper-slide bg-img d-flex" style="background-image: url({{ asset('storage/carousels/'.$carousel->url) }});"></div>
+                    <div class="swiper-slide bg-img d-flex">
+                        <img src="{{ asset('storage/carousels/'.$carousel->url) }}" alt="" style="width:100%; height:100%">
+                    </div>
                 @endforeach
             </div>
             <!-- Add Pagination -->

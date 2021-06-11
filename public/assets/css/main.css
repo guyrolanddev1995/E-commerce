@@ -117,7 +117,7 @@ span.old-price-grid {
 }
 
 .slider-height-2 {
-    height: 463px !important;
+    height: 408px !important;
 }
 
 /** product-details **/
@@ -172,4 +172,17 @@ span.old-price-grid {
         margin-right: 5px;
         margin-bottom: 0px;
     }
+}
+
+
+.cart-main-area .table-content table tbody>tr td {
+    color: #666;
+    font-size: 15px;
+    padding: 5px 0;
+    text-align: center;
+}
+
+.cart-main-area .cart-shiping-update-wrapper{
+    display: block !important;
+    width: 100%;
 }
