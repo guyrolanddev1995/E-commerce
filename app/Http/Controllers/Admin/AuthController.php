@@ -15,7 +15,7 @@ class AuthController extends Controller
      * where to redirect admins after login
      * @var string
      */
-    protected $redirectTo = '/admin';
+    protected $redirectTo = '/admin/home';
 
     /**
      * create a new controller instance
@@ -44,7 +44,7 @@ class AuthController extends Controller
             'password' => $request->password,
             'status' => 1
         ], $request->get('remember'))) {
-            return redirect()->intended(route('admin.dashbord'));
+            return redirect()->intended(route('admin.home'));
         }
         return back()->withInput($request->only('email', 'remember'));
     }

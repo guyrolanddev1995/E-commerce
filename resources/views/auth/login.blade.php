@@ -1,68 +1,62 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="main-content main-content-login">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="breadcrumb-trail breadcrumbs">
-						<ul class="trail-items breadcrumb">
-							<li class="trail-item trail-begin">
-								<a href="index.html">Home</a>
-							</li>
-							<li class="trail-item trail-end active">
-								Connexion
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="content-area col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<div class="site-main">
-						<div class="customer_login">
-							<div class="" style="display:flex; justify-content:center">
-								<div class="col-lg-6 col-md-6 col-sm-12">
-									<div class="login-item" >
-										<h5 class="title-login">Connectez-vous à votre compte</h5>
-										<form class="login" action="{{ route('login') }}" method="post">
-                                            @csrf
-											<p class="form-row form-row-wide">
-												<label class="text">Adresse email</label>
-												<input title="email" type="email" name="email" class="@error('email') is-invalid @enderror input-text">
-                                                @error('email')
-                                                    <div class="invalid-feedback text-danger">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
-											</p>
-											<p class="form-row form-row-wide">
-												<label class="text">Mot de passe</label>
-												<input title="password" type="password" name="password" class=" @error('password') is-invalid @enderror input-text">
-                                                @error('password')
-                                                    <div class="invalid-feedback text-danger">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
-											</p>
-											<p class="lost_password">
-												<span class="inline">
-													<input type="checkbox" id="cb1">
-													<label for="cb1" class="label-text">Se souvenir de moi</label>
-												</span>
-												<a href="#" class="forgot-pw">Mot de passe oublié?</a>
-											</p>
-											<p class="form-row">
-												<input type="submit" class="button-submit" value="Se connecter">
-											</p>
-										</form>
-									</div>
+@include('site.partials.header')
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumb-content">
+                    <ul class="nav">
+                        <li><a href="index.html">Accueil</a></li>
+                        <li>Connexion</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="login-register-area mtb-60px">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-5 col-md-12 ml-auto mr-auto">
+				@include('site.partials.flash')
+				<div class="login-register-wrapper">
+					<div class="login-form-container">
+						<h4 class="mb-3 text-center">Se connecter</h4>
+						<div class="login-register-form mt-5">
+							<form action="{{ route('login') }}" method="post">
+								@csrf
+								<div class="form-group mb-4">
+									<input type="email" name="email" value="{{ old('email') }}" class="@error('email') is-invalid @enderror"  placeholder="Entrer votre adresse email" />
+									@error('email')
+										<div class="invalid-feedback text-danger">
+											{{ $message }}
+										</div>
+									@enderror
 								</div>
-							</div>
+								<div class="form-group">
+									<input type="password" name="password" class="@error('password') is-invalid @enderror" placeholder="Entrer votre mot de passe" />
+									@error('password')
+										<div class="invalid-feedback text-danger">
+											{{ $message }}
+										</div>
+									@enderror
+								</div>	
+								<div class="button-box">
+									<div class="login-toggle-btn">
+										<input type="checkbox" />
+										<a class="flote-none" href="javascript:void(0)">Se souvenir de moi</a>
+										<a href="#">Mot de passe oublié ?</a>
+									</div>
+									<button type="submit"><span>Se connecter</span></button>
+								</div>
+							</form>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
 @endsection

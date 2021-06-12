@@ -45,7 +45,7 @@
                 <div class="add-to-link">
                     <ul>
                         <li class="cart">
-                            <a class="cart-btn" href="#">Ajouter au panier </a>
+                            <a class="cart-btn" @click.prevent="addToCart" :disabled="loading">Ajouter au panier </a>
                         </li>
                     </ul>
                 </div>
@@ -56,6 +56,7 @@
 
 <script>
 import ProductModal from './ProductModal'
+import { EventBus } from "../event-bus.js";
 export default {
     components:{
         ProductModal
@@ -65,7 +66,43 @@ export default {
     },
 
     data() {
-        return {};
+        return {
+            loading: false
+        };
+    },
+
+    methods:{
+        addToCart(){
+            this.loading = true
+            window.axios.post('/product/add/cart', {
+                qty: 1,
+                productId : this.product.id,
+                image: this.product.product_image,
+                slug: this.product.slug,
+                price: this.product.sale ? this.product.sale_price : this.product.price
+            })
+            .then(response => {
+                this.loading = false
+                if(response.data.code == 200){
+                    EventBus.$emit("cart-listener");
+                    this.$swal({
+                        icon: 'success',
+                        title: response.data.message,
+                        text: 'Voulez-vous accéder à votre panier ou continer votre achat ?',
+                        showConfirmButton: true,
+                        showDenyButton: true,
+                        confirmButtonText: 'Aller au panier',
+                        denyButtonText: 'Continuer ma boutique',
+                    })
+                    .then(response => {
+                        if(response.isConfirmed){
+                            window.location.href="/cart"
+                        }
+                    })
+                }
+            })
+            .catch(error => this.loading = false)
+        }
     },
 
     mounted() {

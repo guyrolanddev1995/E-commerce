@@ -18,10 +18,16 @@ Vue.component('cart-modal', require('./components/ModalCart.vue').default);
 Vue.component('cart-header', require('./components/CartHeader.vue').default);
 Vue.component('shopping-cart', require('./components/ShoppingCart.vue').default);
 
+Vue.component('statistique', require('./components/backend/Statistique.vue').default);
+Vue.component('widget-notification', require('./components/backend/widgetNotification.vue').default);
+Vue.component('order-widget', require('./components/backend/OrderWidget.vue').default);
+
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
+
 Vue.use(VueSweetalert2)
+Vue.use(require('vue-moment'));
 
 const app = new Vue({
     el: '#app',

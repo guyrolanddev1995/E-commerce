@@ -5,7 +5,7 @@
             <button class="offcanvas-close">×</button>
         </div>
         <div class="body customScroll">
-            <ul class="minicart-product-list" v-if="cart != null && cart.length > 0">
+            <ul class="minicart-product-list" v-if="count > 0">
                 <li v-for="item in cart" :key="item.id">
                     <a href="single-product.html" class="image"><img :src="'/storage/products/300x300/'+item.attributes['image']" :alt="item.name" style="height: 100px"></a>
                     <div class="content">
@@ -18,7 +18,7 @@
                 </li>
             </ul>
 
-            <div class="d-flex justify-content-center align-items-center w-100 h-100">
+            <div v-else class="d-flex justify-content-center align-items-center w-100 h-100">
                 <div class="text-center">
                     <img src="/images/empty.svg" alt="" width="200px" height="200px">
                     <h4 class="text-center">Votre panier est vide</h4>
@@ -26,13 +26,13 @@
                 </div>
             </div>
         </div>
-        <div class="foot" v-if="cart != null && cart.length > 0">
+        <div class="foot" v-if="count > 0">
             <div class="sub-total">
                 <strong>Total :</strong>
                 <span class="amount">{{ total }} XOF</span>
             </div>
             <div class="buttons">
-                <a href="cart.html" class="btn btn-dark btn-hover-primary mb-30px">Voir Mon Panier</a>
+                <a href="/cart" class="btn btn-dark btn-hover-primary mb-30px">Voir Mon Panier</a>
                 <a href="checkout.html" class="btn btn-outline-dark current-btn">Payer maintenant</a>
             </div>
         </div>
@@ -46,15 +46,17 @@ export default {
     data(){
         return{
             total: null,
-            cart: null
+            cart: null,
+            count: 0
         }
     },
 
     methods:{
         async getCart() {
             await window.axios.get("/cart/all").then(response => {
-                this.total = response.data.total,
+                this.total = response.data.total
                 this.cart = response.data.cart
+                this.count = response.data.count
             });
         },
 

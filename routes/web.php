@@ -34,6 +34,7 @@ Route::group(['middleware' => ['auth']], function() {
    Route::get('checkout', 'Site\CheckoutController@create')->name('check-out');
    Route::post('checkout/store', 'Site\CheckoutController@store')->name('check-out.store');
    Route::view('checkout/success', 'site.pages.congratulation')->name('check-out.success');
+   Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 });
 
 

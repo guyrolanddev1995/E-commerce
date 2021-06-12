@@ -46,6 +46,10 @@
         <li>
             <a href="{{ route('admin.slide.create') }}"><i class="fa fa-picture-o" aria-hidden="true"></i><span>Média</span></a>
         </li>
+
+        <li>
+          <a href="{{ route('admin.settings') }}"><i class="fa fa-picture-o" aria-hidden="true"></i><span>Paramètres</span></a>
+      </li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>

@@ -1,96 +1,102 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="main-content main-content-login">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="breadcrumb-trail breadcrumbs">
-						<ul class="trail-items breadcrumb">
-							<li class="trail-item trail-begin">
-								<a href="index.html">Home</a>
-							</li>
-							<li class="trail-item trail-end active">
-								Inscription
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="content-area col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<div class="site-main">
-						<div class="customer_login">
-							<div class="" style="display:flex; justify-content:center">
-								<div class="col-lg-6 col-md-6 col-sm-12">
-									<div class="login-item">
-										<h5 class="title-login">S'inscrire</h5>
-										<form class="register" action="{{ route('register') }}" method="post">
-                                            @csrf
-                                            <p class="form-row form-row-wide">
-												<label class="text">Nom</label>
-												<input title="nom" name="nom" value="{{ old('nom') }}" type="text" class="input-text">
-                                                @error('nom')
-                                                    <div class="invalid-feedback text-danger">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
-											</p>
-                                            <p class="form-row form-row-wide">
-												<label class="text">Prénom</label>
-												<input title="prenom" name="prenom" value="{{ old('prenom') }}" type="text" class="input-text">
-                                                 @error('prenom')
-                                                    <div class="invalid-feedback text-danger">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
-											</p>
-											<p class="form-row form-row-wide">
-												<label class="text">Adresse email</label>
-												<input title="email" name="email" type="email" value="{{ old('email') }}" class="input-text">
-                                                  @error('email')
-                                                    <div class="invalid-feedback text-danger">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
-											</p>
-											<p class="form-row form-row-wide">
-												<label class="text">Numéro de téléphone</label>
-												<input title="phone" name="phone" value="{{ old('phone') }}" type="text" class="input-text">
-                                                 @error('phone')
-                                                    <div class="invalid-feedback text-danger">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
-											</p>
-											<p class="form-row form-row-wide">
-												<label class="text">Mot de passe</label>
-												<input title="password" type="password" name="password" value="{{ old('password') }}" class="input-text">
-                                                @error('password')
-                                                    <div class="invalid-feedback text-danger">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
-                                                
-											</p>
-											<p class="form-row">
-												<span class="inline">
-													<input type="checkbox" id="cb2">
-													<label for="cb2" class="label-text">Je suis d'accord avec <span>les terms & Conditions</span></label>
-												</span>
-											</p>
-                                            
-											<p class="">
-												<input type="submit" class="button-submit" value="Je m'inscris">
-											</p>
-										</form>
+@include('site.partials.header')
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumb-content">
+                    <ul class="nav">
+                        <li><a href="index.html">Accueil</a></li>
+                        <li>Nouveau compte</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="login-register-area mtb-60px">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-7 col-md-12 ml-auto mr-auto">
+				@include('site.partials.flash')
+				<div class="login-register-wrapper">
+					<div class="login-form-container">
+						<h4 class="mb-3 text-center">Créer un compte</h4>
+						<div class="login-register-form mt-5">
+							<form action="{{ route('register') }}" method="post">
+								@csrf
+								<div class="row">
+									<div class="col-md-6 col-12">
+										<div class="form-group mb-4">
+											<input type="text" name="nom" value="{{ old('nom') }}" class="@error('nom') is-invalid @enderror"  placeholder="Entrer votre nom" />
+											@error('nom')
+												<div class="invalid-feedback text-danger">
+													{{ $message }}
+												</div>
+											@enderror
+										</div>
+									</div>
+									<div class="col-md-6 col-12">
+										<div class="form-group mb-4">
+											<input type="text" name="prenom" value="{{ old('prenom') }}" class="@error('prenom') is-invalid @enderror"  placeholder="Entrer votre prenom" />
+											@error('email')
+												<div class="invalid-feedback text-danger">
+													{{ $message }}
+												</div>
+											@enderror
+										</div>
 									</div>
 								</div>
-							</div>
+								<div class="row">
+									<div class="col-md-6 col-12">
+										<div class="form-group mb-4">
+											<input type="email" name="email" value="{{ old('email') }}" class="@error('email') is-invalid @enderror"  placeholder="Entrer votre adresse email" />
+											@error('email')
+												<div class="invalid-feedback text-danger">
+													{{ $message }}
+												</div>
+											@enderror
+										</div>
+									</div>
+									<div class="col-md-6 col-12">
+										<div class="form-group mb-4">
+											<input type="password" name="password" value="{{ old('passwor') }}" class="@error('email') is-invalid @enderror"  placeholder="Entrer votre mot de passe" />
+											@error('password')
+												<div class="invalid-feedback text-danger">
+													{{ $message }}
+												</div>
+											@enderror
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-2 col-2">
+										<div class="form-group mb-4">
+											<input type="text" name="prefix" value="+225" disabled/>
+										</div>
+									</div>
+									<div class="col-md-10 col-10">
+										<div class="form-group mb-4">
+											<input type="text" name="phone" value="{{ old('phone') }}" class="@error('phone') is-invalid @enderror"  placeholder="Entrer votre numéro de téléphone" />
+											@error('phone')
+												<div class="invalid-feedback text-danger">
+													{{ $message }}
+												</div>
+											@enderror
+										</div>
+									</div>
+								</div>
+								<div class="button-box">
+									<button type="submit"><span>Créer votre compte</span></button>
+								</div>
+							</form>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
 @endsection

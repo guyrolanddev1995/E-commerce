@@ -48,9 +48,10 @@
                                     <ul>
                                         <li class="cart">
                                             <a
-                                                title="Add to cart"
+                                                title="Ajouter au panier"
                                                 class="cart-btn"
-                                                href="#"
+                                                @click.prevent="addToCart" 
+                                                :disabled="loading"
                                                 >Ajouter au panier
                                             </a>
                                         </li>
@@ -66,10 +67,51 @@
 </template>
 
 <script>
+import { EventBus } from "../event-bus.js";
 export default {
     props: {
         product: Object
     },
+
+    data() {
+        return {
+            loading: false
+        };
+    },
+    
+    methods:{
+        addToCart(){
+            this.loading = true
+            window.axios.post('/product/add/cart', {
+                qty: 1,
+                productId : this.product.id,
+                image: this.product.product_image,
+                slug: this.product.slug,
+                price: this.product.sale ? this.product.sale_price : this.product.price
+            })
+            .then(response => {
+                this.loading = false
+                if(response.data.code == 200){
+                    EventBus.$emit("cart-listener");
+                    this.$swal({
+                        icon: 'success',
+                        title: response.data.message,
+                        text: 'Voulez-vous accéder à votre panier ou continer votre achat ?',
+                        showConfirmButton: true,
+                        showDenyButton: true,
+                        confirmButtonText: 'Aller au panier',
+                        denyButtonText: 'Continuer ma boutique',
+                    })
+                    .then(response => {
+                        if(response.isConfirmed){
+                            window.location.href="/cart"
+                        }
+                    })
+                }
+            })
+            .catch(error => this.loading = false)
+        }
+    }
 };
 </script>
 

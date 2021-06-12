@@ -19,10 +19,12 @@ class CartController extends Controller
     {
         $cart = Cart::getContent();
         $total = Cart::getSubTotal();
+        $length = $cart->count();
         
         return response()->json([
             'cart' => $cart,
-            'total' => $total
+            'total' => $total,
+            'count' => $length
         ]);
     }
 

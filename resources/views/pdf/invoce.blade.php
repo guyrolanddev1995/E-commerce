@@ -42,11 +42,11 @@
     }
 
     .products-list tr td{
-        padding: 6px;
+        padding: 2px 6px;
     }
 
     .products-list tr.items td{
-        padding: 8px;
+        padding: 2px 8px;
         border-bottom: 1px solid #ddd;
     }
     
@@ -93,17 +93,17 @@
         </table>
         <table class="products-list" cellspacing="0" cellpadding="0">
                 <tr class="header">
-                    <td>QTÉ</td>
-                    <td>DESIGNATION</td>
-                    <td>PRIX UNITAIR</td>
-                    <td style="text-align: right">PRIX TOTAL</td>
+                    <td style="font-size: 12px">QTÉ</td>
+                    <td style="font-size: 12px">DESIGNATION</td>
+                    <td style="font-size: 12px">PRIX UNITAIR</td>
+                    <td style="text-align: right; font-size:12px">PRIX TOTAL</td>
                 </tr>
                 @foreach($products as $product)
                     <tr class="items" style="border: 1px solid">
                         <td width="5%">{{ $product->pivot->quantity }} </td>
-                        <td width="30%">{{ $product->name }}</td>
-                        <td>{{ $product->price }} {{ config('settings.currency_symbol') }}</td>
-                        <td style="text-align: right">{{ $product->pivot->total_price }} {{ config('settings.currency_symbol') }}</td>
+                        <td><p style="font-size: 12px">{{ $product->name }}</p></td>
+                        <td width="9%"><p style="font-size: 12px">{{ $product->price }} {{ config('settings.currency_symbol') }}</p></td>
+                        <td width="9%" style="text-align: right"><p style="font-size: 12px">{{ $product->pivot->total_price }} {{ config('settings.currency_symbol') }}</p></td>
                     </tr>
                 @endforeach
         

@@ -56,7 +56,7 @@ class RegisterController extends Controller
             'prenom' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8'],
-            'phone' =>  ['required', 'string', 'size:8'],
+            'phone' =>  ['required', 'string', 'size:10'],
         ]);
     }
 

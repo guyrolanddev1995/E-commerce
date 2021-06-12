@@ -8,7 +8,7 @@
             </div>
             <div class="col-md-10 align-self-center">
                 <div class="header-right-element d-flex">
-                    <div class="search-element media-body">
+                    <div class="search-element media-body mr-120px">
                         <form class="d-flex" action="#">
                             <div class="search-category">
                                 <select>
@@ -32,11 +32,22 @@
                             <button><i class="icon-magnifier"></i></button>
                         </form>
                     </div>
-                    <div class="contact-link">
-                        <a href="#" class="heart offcanvas-toggle"><i class="icon-heart"></i></a>
-                    </div>
                     <!--Cart info Start -->
                     <div class="header-tools d-flex">
+                        <div class="dropdown align-self-center">
+                            <button class="color-black" type="button" id="dropdownMenuButton-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icon-user"></i></button>
+    
+                            <ul class="dropdown-menu animation slideDownIn" aria-labelledby="dropdownMenuButton-4">
+                                @if(Auth::check())
+                                    <li><a href="my-account.html">Votre Compte</a></li>
+                                    <li><a href="checkout.html">Vos Commandes</a></li>
+                                    <li><a href="{{ route('logout') }}">Se Déconnecter</a></li>
+                                @else
+                                    <li><a href="{{ route('login') }}">Se connecter</a></li>
+                                    <li><a href="{{ route('register') }}">Créer un compte</a></li>
+                                @endif
+                            </ul>
+                        </div>
                         <cart-header></cart-header>
                     </div>
                 </div>

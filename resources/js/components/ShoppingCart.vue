@@ -4,7 +4,7 @@
       <h3 class="cart-page-title">Panier</h3>
       <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-          <div v-if="cart != null && cart.length > 0">
+          <div v-if="count > 0 ">
             <div class="table-content table-responsive cart-table-content">
               <table>
                 <thead>
@@ -44,7 +44,7 @@
                 <div class="cart-shiping-update-wrapper">
                   <div class="d-flex cart-clear justify-content-end">
                     <button>Poursuivre vos achats</button>
-                    <a href="#">Finaliser votre commande</a>
+                    <a href="/checkout">Finaliser votre commande</a>
                   </div>
                 </div>
               </div>
@@ -231,13 +231,18 @@ export default {
     return {
       total: null,
       cart: null,
+      count: null
     };
   },
 
   methods: {
     async getCart() {
       await window.axios.get("/cart/all").then((response) => {
-        (this.total = response.data.total), (this.cart = response.data.cart);
+        this.total = response.data.total
+        this.cart = response.data.cart;
+        this.count = response.data.count
+
+        console.log(this.count)
       });
     },
   },

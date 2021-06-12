@@ -1,9 +1,9 @@
 <?php
 
 Route::group(['prefix' => 'admin'], function () {
-    Route::get("login", 'Admin\AuthController@showLoginForm')->name('admin.login');
-    Route::post('login', 'Admin\AuthController@login')->name('admin.login.post');
-    Route::get('logout', 'Admin\AuthController@logout')->name('admin.logout');
+    Route::get("/login", 'Admin\AuthController@showLoginForm')->name('admin.login');
+    Route::post('/login', 'Admin\AuthController@login')->name('admin.login.post');
+    Route::get('/logout', 'Admin\AuthController@logout')->name('admin.logout');
 
     Route::group(['middleware' => ['auth:admin']], function(){
         Route::get('/home', function(){
@@ -14,7 +14,7 @@ Route::group(['prefix' => 'admin'], function () {
             return view('admin.dashbord.index');
         })->name('admin.home');
 
-        // Route::get("/settings", 'Admin\SettingController@index')->name('admin.settings');
+        Route::get("/settings", 'Admin\SettingController@index')->name('admin.settings');
         // Route::post('/settings', 'Admin\SettingController@update')->name('admin.settings.update');
 
         Route::get('/categories/{category}/delete', 'Admin\CategoryController@destroy')->name('admin.categories.delete');
@@ -93,6 +93,8 @@ Route::group(['prefix' => 'admin'], function () {
              Route::get('/', 'Admin\OrderController@index')->name('admin.orders.index');
              Route::get('/show/{code}', "Admin\OrderController@show")->name('admin.orders.show');
              Route::get('/update/{id}', "Admin\OrderController@update")->name('admin.orders.update');
+             Route::get('/{id}/confirm-delivery', "Admin\OrderController@confirmDelivery")->name('admin.orders.delivery');
+
              Route::get('/print-pdf/{code}', "Admin\OrderController@printPDF")->name('admin.orders.printPDF');
              Route::get('/invoice/{code}', 'Admin\OrderController@invoice')->name('admin.orders.invoice');
          });
@@ -136,5 +138,11 @@ Route::group(['prefix' => 'admin'], function () {
             // Route::put('/{role}/update', 'Admin\RoleController@update')->name('admin.role.update');
             // Route::get('/{role}/delete', 'Admin\RoleController@delete')->name('admin.role.delete');
     //     });
+
+            Route::prefix('notification')->group(function () {
+                Route::get('/orders', 'Admin\HomeController@getOrderStatistiques');
+                Route::get('/widgets/statistique', 'Admin\HomeController@widgetNotifications');
+                Route::get('/lastest/orders', 'Admin\HomeController@getLatestOrders');
+            });
     });
 });

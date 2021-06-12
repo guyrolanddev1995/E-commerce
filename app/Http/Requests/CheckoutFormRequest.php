@@ -26,7 +26,8 @@ class CheckoutFormRequest extends FormRequest
         return [
             'nom' => 'required',
             'prenom' => 'required',
-            'phone1' => 'required|numeric',
+            'phone1' => 'required|size:10',
+            'phone2' => 'nullable|size:10',
             'adresse' => 'required',
             'region' => 'required',
             'ville' => 'required'

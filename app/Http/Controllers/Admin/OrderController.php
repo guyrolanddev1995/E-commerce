@@ -20,9 +20,24 @@ class OrderController extends BaseController
     public function index()
     {
         $orders = $this->orderRepositorty->listOrders();
+
+        $collection = collect($orders);
+
+        $en_attentes =  $collection->filter(function($value, $key){
+            return $value->status == 0;
+        })->all();
+ 
+         $en_cours = $collection->filter(function($value, $key){
+             return $value->status == 1;
+         })->all();
+ 
+         $livres = $collection->filter(function($value, $key){
+             return $value->status == 2;
+         })->all();
      
         $this->setPageTitle('Commandes', 'Liste des commandes');
-        return view('admin.orders.index', compact('orders'));
+
+        return view('admin.orders.index', compact('orders', 'en_attentes', 'en_cours', 'livres'));
     }
 
     public function show(string $code)
@@ -54,6 +69,14 @@ class OrderController extends BaseController
         }
 
         return redirect()->back()->with('success', 'Commande validée avec succès');
+    }
+
+    public function confirmDelivery($id)
+    {
+        $order = $this->orderRepositorty->findOrderById($id);
+        $order->update(['status' => '2']);
+
+        return redirect()->back()->with('success', 'Commande livrée avec succès');
     }
 
     public function printPDF($code)

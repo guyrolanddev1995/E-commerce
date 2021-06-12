@@ -1,12 +1,18 @@
 @if(session('success'))
-<div class="text-center flash" role="alert" style="height: 60px; display:flex; align-items:center; justify-content:center; background-color:rgb(13, 170, 13); color:white">
+<div class="alert alert-success alert-dismissible fade show" role="alert">
    {{ session('success') }}
-</div>
+   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+     <span aria-hidden="true">&times;</span>
+   </button>
+ </div>
 @endif
 
 @if(session('error'))
-<div class="text-center flash" role="alert" style="height: 60px; display:flex; align-items:center; justify-content:center; background-color:red; color:white">
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
    {{ session('error') }}
-</div>
+   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+     <span aria-hidden="true">&times;</span>
+   </button>
+ </div>
 @endif
 

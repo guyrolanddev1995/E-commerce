@@ -186,3 +186,48 @@ span.old-price-grid {
     display: block !important;
     width: 100%;
 }
+
+/*** Login form ***/
+.login-register-wrapper .login-form-container {
+    background: transparent none repeat scroll 0 0;
+    box-shadow:  none;
+    padding: 20px 5px;
+    text-align: left;
+}
+
+.login-register-wrapper .login-form-container .login-register-form input {
+    background-color: transparent;
+    border: 1px solid #ebebeb;
+    color: #666;
+    font-size: 14px;
+    height: 45px;
+    margin-bottom: 5px;
+    padding: 0 15px;
+    width: 100%;
+    outline: 0;
+}
+
+.is-invalid~.invalid-feedback{
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.is-invalid{
+    border: 1px solid #dc3545!important;
+} 
+
+
+/*** orders ***/
+.your-order-area .Place-order button {
+    background-color: #146cda;
+    color: #fff;
+    display: block;
+    font-weight: 700;
+    letter-spacing: 1px;
+    line-height: 1;
+    padding: 18px 20px;
+    text-align: center;
+    text-transform: uppercase;
+    border-radius: 5px;
+    z-index: 9;
+}

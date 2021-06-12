@@ -1,98 +1,104 @@
 @extends('admin.app')
-@section('styles')
-    <link rel="stylesheet" href="{{ asset('backend/assets/bundles/datatables/datatables.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('backend/assets/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('backend/assets/bundles/prism/prism.css') }}">
-@endsection
 @section('content')
-<div class="section-body">
-  @include('admin.partials.flash')
-  <div class="invoice">
-    <div class="invoice-print">
+<div>
+    <section class="content-header"></section>
+    <section class="invoice">
+      <!-- title row -->
       <div class="row">
-        <div class="col-lg-12">
-          <div class="invoice-title">
-            <h2>Facture</h2>
-            <div class="invoice-number">Commande n °{{ $order->code }}</div>
-          </div>
-          <hr>
-          <div class="row">
-            <div class="col-md-6">
-              <address>
-                <strong>Facturé à:</strong><br>
-                elleetluiparfums<br>
-                6404 Cut Glass Ct,<br>
-                Wendell,<br>
-                NC, 27591, USA
-              </address>
-            </div>
-            <div class="col-md-6 text-md-right">
-              <address>
-                <strong>Expédié à:</strong><br>
-                {{ $order->nom }} {{ $order->prenom }}<br>
-                {{ $order->phone1 }}, {{ $order->phone2 }}<br>
-                {{ $order->adresse }},<br>
-                {{ $order->region }}, {{ $order->ville }}
-              </address>
-            </div>
-          </div>
-
-            <div class="col-md-12 text-md-right">
-              <address>
-                <strong>Date de commande:</strong><br>
-                {{ date('d/m/Y', strtotime($order->updated_at)) }} à {{ date('H:m:s', strtotime($order->updated_at)) }}<br><br>
-              </address>
-            </div>
-          </div>
+        <div class="col-xs-12">
+          <h2 class="page-header">
+            <i class="fa fa-globe"></i> FACTURE {{ $order->code }}.
+            <small class="pull-right">Date: 2/10/2014</small>
+          </h2>
         </div>
+        <!-- /.col -->
       </div>
-      <div class="row mt-4">
-        <div class="col-md-12">
-          <div class="section-title">Récapitulatif de la commande</div>
-          <div class="table-responsive">
-            <table class="table table-bordered table-striped table-hover table-md">
-              <tr>
-                <th data-width="40">#</th>
-                <th>Article</th>
-                <th class="text-center">Prix unitaire</th>
-                <th class="text-center">Quantité</th>
-                <th class="text-right">Prix total</th>
-              </tr>
+      <!-- info row -->
+      <div class="row invoice-info">
+        <div class="col-sm-4 invoice-col">
+          De
+          <address>
+            <strong>Admin, Inc.</strong><br>
+            795 Folsom Ave, Suite 600<br>
+            San Francisco, CA 94107<br>
+            Phone: (804) 123-5432<br>
+            Email: info@almasaeedstudio.com
+          </address>
+        </div>
+        <!-- /.col -->
+        <div class="col-sm-4 invoice-col">
+          Expédié à:
+          <address>
+            <strong>{{ $order->nom }} {{ $order->prenom }}</strong><br>
+            {{ $order->adresse }}<br>
+            {{ $order->region }}, {{ $order->ville }}<br>
+            Phone: {{ $order->phone1 }}, {{ $order->phone2 }}<br>
+          </address>
+        </div>
+        <!-- /.col -->
+        <div class="col-sm-4 invoice-col">
+          <b>Facture {{ $order->code }}</b><br>
+          <br>
+          <b>Date de commande:</b> {{ date('d/m/Y', strtotime($order->updated_at)) }}<br>
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+  
+      <!-- Table row -->
+      <div class="row">
+        <div class="col-xs-12 table-responsive">
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th>Qty</th>
+              <th>Article</th>
+              <th class="text-center">Prix unitaire</th>
+              <th class="text-right">Prix total</th>
+            </tr>
+            </thead>
+            <tbody>
               @foreach ($products as $product)
-              <tr>
-                <td>1</td>
-                <td>{{ $product->name }}</td>
-                <td class="text-center">{{ $product->price }} CFA</td>
-                <td class="text-center">{{ $product->pivot->quantity }}</td>
-                <td class="text-right">{{ $product->pivot->total_price }} CFA</td>
-              </tr>
+                  <tr>
+                    <td class="text-center">{{ $product->pivot->quantity }}</td>
+                    <td>{{ $product->name }}</td>
+                    <td class="text-center">{{ $product->price }} XOF</td>
+                    <td class="text-right">{{ $product->pivot->total_price }} XOF</td>
+                  </tr>
               @endforeach
+            </tbody>
+          </table>
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+  
+      <div class="row">
+        <!-- /.col -->
+        <div class="col-xs-4 pull-right">
+          <div class="table-responsive">
+            <table class="table">
+              <tr>
+                <th style="width:50%">Total:</th>
+                <td class="text-right">{{ $order->amount }} XOF</td>
+              </tr>
             </table>
           </div>
-          <div class="row mt-4">
-            <div class="col-lg-12 text-right">
-              <hr class="mt-2 mb-2">
-              <div class="invoice-detail-item">
-                <div class="invoice-detail-name">Total</div>
-                <div class="invoice-detail-value invoice-detail-value-lg">{{ $order->amount }} CFA</div>
-              </div>
-            </div>
-          </div>
+        </div>
+        <!-- /.col -->
+      </div>
+
+      <div class="row no-print">
+        <div class="col-xs-12">
+          <a href="{{ route('admin.orders.printPDF', $order->code) }}" type="button" class="btn btn-success pull-right" style="margin-right: 5px;">
+            <i class="fa fa-download"></i> Télécharger la facture
+          </a>
+          <a href="{{ route('admin.orders.index') }}" class="btn btn-default" style="margin-right: 5px;">
+            <i class="fa fa-arrow-left"></i> Retour
+          </a>
         </div>
       </div>
-    </div>
-    <hr>
-    <div class="text-md-right">
-      <a href="{{ route('admin.orders.printPDF', $order->code) }}" class="btn btn-warning btn-icon icon-left"><i class="fas fa-print"></i>Imprimer la facture</a>
-    </div>
-  </div>
+      <!-- /.row -->
+    </section>
 </div>
-@endsection
-
-@section('scripts')
-  <script src="{{ asset('backend/assets/bundles/datatables/datatables.min.js') }}"></script>
-  <script src="{{ asset('backend/assets/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js') }}"></script>
-  <script src="{{ asset('backend/assets/bundles/jquery-ui/jquery-ui.min.js') }}"></script>
-  <script src="{{ asset('backend/assets/js/page/datatables.js') }}"></script>
-  <script src="{{ asset('backend/assets/bundles/prism/prism.js') }}"></script>
 @endsection

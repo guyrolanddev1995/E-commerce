@@ -1,75 +1,57 @@
 @extends('admin.app')
-@section('styles')
-    <link rel="stylesheet" href="{{ asset('backend/assets/bundles/datatables/datatables.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('backend/assets/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('backend/assets/bundles/prism/prism.css') }}">
-@endsection
+
 @section('content')
-<div class="section-body">
-    <div class="row">
-     
-      <div class="col-12">
+<div>
+    <section class="content-header">
+        <h1>
+          Les commandes
+        </h1>
+        <ol class="breadcrumb">
+          <li><a href="#"><i class="fa fa-dashboard"></i> Tableau de bord</a></li>
+          <li class="active">liste des commandes</li>
+        </ol>
+      </section>
+    
+      <!-- Main content -->
+      <section class="content container-fluid" style="margin-top:30px">
         @include('admin.partials.flash')
-        <div class="card">
-          <div class="card-header">
-            <h4>Liste des commandes</h4>
-          </div>
-          <div class="card-body">
-            <div class="table-responsive">
-              <table class="table table-striped" id="table-1">
-                <thead>
-                    <tr class="text-center">
-                        <th width="3%"> # </th>
-                        <th width="10%">Code</th>
-                        <th width="15%">Client</th>
-                        <th width="12%">Téléphone</th>
-                        <th width="12%">Montant(CFA)</th>
-                        <th width="8%">Status</th>
-                        <th width="17%">Date de création</th>
-                        <th width="3%">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($orders as $key => $order)
-                        <tr class="{{ $order->status == 0 ? 'bg-light' : '' }}">
-                            <td class="p-1" width="3%">{{ $key + 1 }}</td>
-                            <td class="p-1 text-info">
-                                <a href="{{ route('admin.orders.show', $order->code) }}">
-                                    {{ $order->code }}
-                                </a>
-                            </td>
-                            <td class="p-1">{{ $order->customer->nom }} {{ $order->customer->prenom }}</td>
-                            <td class="p-1">{{ $order->phone1 }}</td>
-                            <td class="p-1">{{ $order->amount }} CFA</td>
-                            <td class="text-center">
-                                @if($order->status == 0)
-                                    <span class="badge badge-info text-white">En Attente</span>
-                                @elseif($order->status == 1)
-                                    <span class="badge badge-success">Validé</span>
-                                @endif
-                            </td>
-                            <td>
-                              {{ date('d M Y', strtotime($order->created_at)) }} à {{ date('H:i:s', strtotime($order->created_at)) }}</td>
-                            </td>
-                            <td class="">
-                                <a href="{{ route('admin.orders.show', $order->code) }}" class="btn btn-sm btn-info" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Voir la commande"><i class="fa btn-icon fa-eye"></i></a>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-              </table>
+        <div class="row">
+          <div class="row">
+            <div class="col-md-12">
+              <!-- Custom Tabs -->
+              <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                  <li class="active"><a href="#tab_1" data-toggle="tab">Toutes mes commandes</a></li>
+                  <li><a href="#tab_2" data-toggle="tab">Commandes attentes</a></li>
+                  <li><a href="#tab_3" data-toggle="tab">Commandes en cour de livraison</a></li>
+                  <li><a href="#tab_4" data-toggle="tab">Commandes livrées</a></li>
+                </ul>
+                <div class="tab-content">
+                  <div class="tab-pane active" id="tab_1">
+                    @include('admin.includes.orderTable', ['orders' => $orders])
+                  </div>
+                  <!-- /.tab-pane -->
+                  <div class="tab-pane" id="tab_2">
+                    @include('admin.includes.orderTable', ['orders' => $en_attentes])
+                  </div>
+                  <!-- /.tab-pane -->
+                  <div class="tab-pane" id="tab_3">
+                    @include('admin.includes.orderTable', ['orders' => $en_cours])
+                  </div>
+                  <!-- /.tab-pane --> 
+                  <div class="tab-pane" id="tab_4">
+                    @include('admin.includes.orderTable', ['orders' => $livres])
+                  </div>
+                </div>
+                <!-- /.tab-content -->
+              </div>
+              <!-- nav-tabs-custom -->
             </div>
-          </div>
+            <!-- /.col -->
         </div>
-      </div>
-    </div>
-  </div>
+        </div>
+        <!-- /.row -->
+      </section>
+</div>
 @endsection
 
-@section('scripts')
-  <script src="{{ asset('backend/assets/bundles/datatables/datatables.min.js') }}"></script>
-  <script src="{{ asset('backend/assets/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js') }}"></script>
-  <script src="{{ asset('backend/assets/bundles/jquery-ui/jquery-ui.min.js') }}"></script>
-  <script src="{{ asset('backend/assets/js/page/datatables.js') }}"></script>
-  <script src="{{ asset('backend/assets/bundles/prism/prism.js') }}"></script>
-@endsection
